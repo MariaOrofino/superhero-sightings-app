@@ -12,10 +12,19 @@ import java.util.List;
  *
  * @author Travis Rogers
  */
-public class Sighting {
+public class HeroSighting {
+    private int sightingID;
     private Hero hero;
     private Location location;
 
+    public int getSightingID() {
+        return sightingID;
+    }
+
+    public void setSightingID(int sightingID) {
+        this.sightingID = sightingID;
+    }
+    
     public Hero getHero() {
         return hero;
     }

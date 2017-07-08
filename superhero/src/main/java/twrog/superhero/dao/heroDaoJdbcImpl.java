@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import twrog.superhero.dto.Hero;
 import twrog.superhero.dto.Location;
 import twrog.superhero.dto.Organization;
-import twrog.superhero.dto.Sighting;
+import twrog.superhero.dto.HeroSighting;
 
 /**
  *
@@ -42,13 +42,9 @@ public class heroDaoJdbcImpl {
             "inner join HeroSighting on Sighting.SightingID = HeroSighting.SightingID" +
             "inner join Hero on Hero.HeroID = HeroSighting.HeroID" +
             "where Hero.HeroID = ?";
-    private static final String SQL_SELECT_ORGANIZATIONS_BY_HER0_ID =
-            "select Organization.* from Organization" +
-            "inner join HeroOrganization on HeroOrganization.OrganizationID = Organization.OrganizationID" +
-            "inner join Hero on Hero.HeroID = HeroOrganization.HeroID" +
-            "where Hero.HeroID = ?";
+
     private static final String SQL_SELECT_SIGHTINGS_BY_DATE =
-            "select Hero.*, Location.* from Location" +
+            "select Hero.*, Location.*, HeroSighting.SightingID from Location" +
             "inner join Sighting on Location.LocationID = Sighting.LocationID" +
             "inner join HeroSighting on Sighting.SightingID = HeroSighting.SightingID" +
             "inner join Hero on Hero.HeroID = HeroSighting.HeroID" +
@@ -84,11 +80,9 @@ public class heroDaoJdbcImpl {
     public List<Location> getLocationsByHeroID(int heroID) {
         return jdbcTemplate.query(SQL_SELECT_LOCATIONS_BY_HERO_ID, new LocationMapper(), heroID);
     }
-    public List<Organization> getOrganizationsByHeroID(int heroID) {
-        return jdbcTemplate.query(SQL_SELECT_ORGANIZATIONS_BY_HER0_ID, new OrganizationMapper(), heroID);
-    }
-    public List<Sighting> getSightingsByDate(LocalDate date) {
-        return jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_DATE, new SightingMapper(), date.toString());
+
+    public List<HeroSighting> getSightingsByDate(LocalDate date) {
+        return jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_DATE, new HeroSightingMapper(), date.toString());
     }
     
     
@@ -123,23 +117,10 @@ public class heroDaoJdbcImpl {
             return location;
         }
     }
-    private static final class OrganizationMapper implements RowMapper<Organization> {
+
+    private static final class HeroSightingMapper implements RowMapper<HeroSighting> {
         @Override
-        public Organization mapRow(ResultSet rs, int i) throws SQLException {
-            Organization org = new Organization();
-            org.setOrganizationID(rs.getInt("OrganizationID"));
-            org.setOrgName(rs.getString("OrgName"));
-            org.setDescription(rs.getString("Description"));
-            org.setStreetAddress(rs.getString("StreetAddress"));
-            org.setCity(rs.getString("City"));
-            org.setState(rs.getString("State"));
-            org.setZipcode(rs.getString("Zipcode"));
-            return org;
-        }
-    }
-    private static final class SightingMapper implements RowMapper<Sighting> {
-        @Override
-        public Sighting mapRow(ResultSet rs, int i) throws SQLException {
+        public HeroSighting mapRow(ResultSet rs, int i) throws SQLException {
             Hero hero = new Hero();
             hero.setHeroID(rs.getInt("HeroID"));
             hero.setHeroName(rs.getString("HeroName"));
@@ -154,7 +135,8 @@ public class heroDaoJdbcImpl {
             location.setZipcode(rs.getString("Zipcode"));
             location.setLatitude(String.valueOf(rs.getDouble("Latitude")));
             location.setLongitude(String.valueOf(rs.getDouble("Longitude")));
-            Sighting sighting = new Sighting();
+            HeroSighting sighting = new HeroSighting();
+            sighting.setSightingID(rs.getInt("SightingID"));
             sighting.setHero(hero);
             sighting.setLocation(location);
             return sighting;
