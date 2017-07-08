@@ -10,6 +10,6 @@ package twrog.superhero.dao;
  *
  * @author Travis Rogers
  */
-public class sightingDaoJdbcImpl {
+public class SightingDaoJdbcImpl {
 
 }

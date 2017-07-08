@@ -9,6 +9,7 @@ package twrog.superhero.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import twrog.superhero.dto.Organization;
@@ -17,7 +18,7 @@ import twrog.superhero.dto.Organization;
  *
  * @author Travis Rogers
  */
-public class orgDaoJdbcImpl {
+public class OrgDaoJdbcImpl {
     private static final String SQL_INSERT_ORG =
             "insert into Organization (OrgName, Description, StreetAddress, City, State, Zipcode) "
             + "values (?, ?, ?, ?, ?, ?)";
@@ -49,7 +50,11 @@ public class orgDaoJdbcImpl {
         );
     }
     public Organization getOrgByID(int orgID) {
-        return jdbcTemplate.queryForObject(SQL_SELECT_ORG_BY_ID, new OrgMapper(), orgID);
+        try {
+            return jdbcTemplate.queryForObject(SQL_SELECT_ORG_BY_ID, new OrgMapper(), orgID);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
     public List<Organization> getAllOrgs() {
         return jdbcTemplate.query(SQL_SELECT_ALL_ORGS, new OrgMapper());

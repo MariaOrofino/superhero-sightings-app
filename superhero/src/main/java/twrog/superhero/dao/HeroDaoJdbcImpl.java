@@ -22,7 +22,7 @@ import twrog.superhero.dto.HeroSighting;
  *
  * @author Travis Rogers
  */
-public class heroDaoJdbcImpl {
+public class HeroDaoJdbcImpl {
     private static final String SQL_SELECT_ALL_LOCATIONS = "select * from Location";
     private static final String SQL_SELECT_ALL_HEROS = "select * from Hero";
     private static final String SQL_SELECT_HEROS_BY_LOCATION_ID =
