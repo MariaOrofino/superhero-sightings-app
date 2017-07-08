@@ -142,4 +142,18 @@ public class HeroDaoJdbcImpl {
             return sighting;
         }
     }
+    
+    private static final String SQL_INSERT_HERO_SUPER_POWER = "insert into HeroSuperPower (HeroID, SuperPowerID) values (?,?)";
+    private static final String SQL_DELETE_HERO_SUPER_POWERS_BY_HERO_ID = "delete from HeroSuperPower where HeroID = ?";
+    private static final String SQL_DELETE_HERO_SUPER_POWERS_BY_SUPER_POWER_ID = "delete from HeroSuperPower where SuperPowerID = ?";
+    
+    public void addHeroSuperPower(int heroID, int superPowerID) {
+        jdbcTemplate.update(SQL_INSERT_HERO_SUPER_POWER, heroID, superPowerID);
+    }
+    public void deleteHeroSuperPowerByHeroID(int heroID) {
+        jdbcTemplate.update(SQL_DELETE_HERO_SUPER_POWERS_BY_HERO_ID, heroID);
+    }
+    public void deleteHeroSuperPowerBySuperPowerID(int superPowerID) {
+        jdbcTemplate.update(SQL_DELETE_HERO_SUPER_POWERS_BY_SUPER_POWER_ID, superPowerID);
+    }
 }
