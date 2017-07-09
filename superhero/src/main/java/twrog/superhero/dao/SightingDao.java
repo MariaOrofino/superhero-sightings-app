@@ -21,6 +21,8 @@ public interface SightingDao {
     void deleteSightingByID(int sightingID);
 
     Sighting getSightingByID(int sightingID);
+    
+    List<Sighting> getAllSightings();
 
     List<Sighting> getSightingsByDate(LocalDate date);
 

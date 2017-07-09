@@ -30,6 +30,10 @@ public class SightingDaoJdbcImpl implements SightingDao {
             "inner join Sighting on Location.LocationID = Sighting.LocationID" +
             "inner join Hero on Hero.HeroID = Sighting.HeroID" +
             "where Sighting.SightingID = ?";
+    private static final String SQL_SELECT_ALL_SIGHTINGS = 
+            "select Hero.*, Location.*, Sighting.SightingID, Sighting.SightingDate from Location" +
+            "inner join Sighting on Location.LocationID = Sighting.LocationID" +
+            "inner join Hero on Hero.HeroID = Sighting.HeroID";
     private static final String SQL_SELECT_SIGHTINGS_BY_DATE =
             "select Hero.*, Location.*, Sighting.SightingID, Sighting.SightingDate from Location" +
             "inner join Sighting on Location.LocationID = Sighting.LocationID" +
@@ -62,6 +66,10 @@ public class SightingDaoJdbcImpl implements SightingDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+    @Override
+    public List<Sighting> getAllSightings() {
+        return jdbcTemplate.query(SQL_SELECT_ALL_SIGHTINGS, new SightingMapper());
     }
     @Override
     public List<Sighting> getSightingsByDate(LocalDate date) {
