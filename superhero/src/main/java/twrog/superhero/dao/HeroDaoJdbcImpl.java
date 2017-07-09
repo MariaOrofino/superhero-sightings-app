@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import twrog.superhero.dto.Hero;
 import twrog.superhero.dto.Location;
 import twrog.superhero.dto.Organization;
-import twrog.superhero.dto.HeroSighting;
+import twrog.superhero.dto.Sighting;
 
 /**
  *

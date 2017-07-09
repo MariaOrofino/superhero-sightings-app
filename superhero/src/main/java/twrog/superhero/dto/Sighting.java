@@ -6,16 +6,17 @@
 
 package twrog.superhero.dto;
 
-import java.util.List;
+import java.time.LocalDate;
 
 /**
  *
  * @author Travis Rogers
  */
-public class HeroSighting {
+public class Sighting {
     private int sightingID;
     private Hero hero;
     private Location location;
+    private LocalDate date;
 
     public int getSightingID() {
         return sightingID;
@@ -40,4 +41,13 @@ public class HeroSighting {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+    
 }
