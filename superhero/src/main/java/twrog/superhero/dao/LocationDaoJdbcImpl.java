@@ -80,6 +80,7 @@ public class LocationDaoJdbcImpl {
         );
     }
     public void deleteLocationByID(int locationID) {
+        deleteSightingsByLocationID(locationID);
         jdbcTemplate.update(SQL_DELETE_LOCATION_BY_ID, locationID);
     }
     
@@ -98,5 +99,10 @@ public class LocationDaoJdbcImpl {
             location.setLongitude(rs.getDouble("Longitude"));
             return location;
         }
+    }
+    
+    private static final String SQL_DELETE_SIGHTINGS_BY_LOCATION_ID = "delete from Sighting where LocationID = ?";
+    private void deleteSightingsByLocationID(int locationID) {
+        jdbcTemplate.update(SQL_DELETE_SIGHTINGS_BY_LOCATION_ID, locationID);
     }
 }

@@ -12,8 +12,6 @@ import java.time.LocalDate;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import twrog.superhero.dto.Hero;
 import twrog.superhero.dto.Sighting;
 import twrog.superhero.dto.Location;
@@ -23,48 +21,47 @@ import twrog.superhero.dto.Location;
  * @author Travis Rogers
  */
 public class SightingDaoJdbcImpl {
-    private static final String SQL_INSERT_SIGHTING = "insert into Sighting (LocationID,SightingDate) values (?,?)";
-    private static final String SQL_INSERT_HEROSIGHTING = "insert into HeroSighting (SightingID,HeroID) values (?,?)";
-    private static final String SQL_SELECT_SIGHTINGS_BY_ID = 
-            "select Hero.*, Location.*, HeroSighting.SightingID, Sighting.SightingDate from Location" +
+    private static final String SQL_INSERT_SIGHTING = "insert into Sighting (LocationID, SightingDate, HeroID) values (?,?,?)";
+    private static final String SQL_SELECT_SIGHTING_BY_ID =
+            "select Hero.*, Location.*, Sighting.SightingID, Sighting.SightingDate from Location" +
             "inner join Sighting on Location.LocationID = Sighting.LocationID" +
-            "inner join HeroSighting on Sighting.SightingID = HeroSighting.SightingID" +
-            "inner join Hero on Hero.HeroID = HeroSighting.HeroID" +
+            "inner join Hero on Hero.HeroID = Sighting.HeroID" +
             "where Sighting.SightingID = ?";
     private static final String SQL_SELECT_SIGHTINGS_BY_DATE =
-            "select Hero.*, Location.*, HeroSighting.SightingID, Sighting.SightingDate from Location" +
+            "select Hero.*, Location.*, Sighting.SightingID, Sighting.SightingDate from Location" +
             "inner join Sighting on Location.LocationID = Sighting.LocationID" +
-            "inner join HeroSighting on Sighting.SightingID = HeroSighting.SightingID" +
-            "inner join Hero on Hero.HeroID = HeroSighting.HeroID" +
+            "inner join Hero on Hero.HeroID = Sighting.HeroID" +
             "where Sighting.SightingDate = ?";
     private static final String SQL_SELECT_SIGHTINGS_BY_LOCATION_ID =
-            "select Hero.*, Location.*, HeroSighting.SightingID, Sighting.SightingDate from Location" +
+            "select Hero.*, Location.*, Sighting.SightingID, Sighting.SightingDate from Location" +
             "inner join Sighting on Location.LocationID = Sighting.LocationID" +
-            "inner join HeroSighting on Sighting.SightingID = HeroSighting.SightingID" +
-            "inner join Hero on Hero.HeroID = HeroSighting.HeroID" +
+            "inner join Hero on Hero.HeroID = Sighting.HeroID" +
             "where Location.LocationID = ?";
+    private static final String SQL_UPDATE_SIGHTING_BY_ID = "update Sighting set LocationID = ?, SightingDate = ?, HeroID = ? where SightingID = ?";
+    private static final String SQL_DELETE_SIGHTING_BY_ID = "delete from Sighting where SightingID = ?";
     
     JdbcTemplate jdbcTemplate;
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
     
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void addSighting(int locationID, LocalDate date, List<Integer> heroIDs) {
-        jdbcTemplate.update(SQL_INSERT_SIGHTING, locationID, date.toString());
-        int sightingID = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
-        for (int heroID : heroIDs) {
-            jdbcTemplate.update(SQL_INSERT_HEROSIGHTING, sightingID, heroID);
-        }
+    public void addSighting(int locationID, LocalDate date, int heroID) {
+        jdbcTemplate.update(SQL_INSERT_SIGHTING, locationID, date.toString(), heroID);
     }
-    public List<Sighting> getSightingsByID(int sightingID) {
-        return jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_ID, new SightingMapper(), sightingID);
+    public List<Sighting> getSightingByID(int sightingID) {
+        return jdbcTemplate.query(SQL_SELECT_SIGHTING_BY_ID, new SightingMapper(), sightingID);
     }
     public List<Sighting> getSightingsByDate(LocalDate date) {
         return jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_DATE, new SightingMapper(), date.toString());
     }
     public List<Sighting> getSightingsByLocationID(int locationID) {
         return jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_LOCATION_ID, new SightingMapper(), locationID);
+    }
+    public void updateSighting(int locationID, LocalDate date, int heroID, int sightingID) {
+        jdbcTemplate.update(SQL_UPDATE_SIGHTING_BY_ID, locationID, date.toString(), heroID, sightingID);
+    }
+    public void deleteSightingByID(int sightingID) {
+        jdbcTemplate.update(SQL_DELETE_SIGHTING_BY_ID, sightingID);
     }
     
     private static final class SightingMapper implements RowMapper<Sighting> {
@@ -93,4 +90,3 @@ public class SightingDaoJdbcImpl {
         }
     }
 }
-

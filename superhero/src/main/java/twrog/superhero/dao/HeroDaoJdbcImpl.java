@@ -96,4 +96,8 @@ public class HeroDaoJdbcImpl {
         jdbcTemplate.update(SQL_DELETE_HERO_ORG_BY_HERO_ID, heroID);
     }
 
+    private static final String SQL_DELETE_SIGHTINGS_BY_HERO_ID = "delete from Sighting where HeroID = ?";
+    private void deleteSightingsByHeroID(int heroID) {
+        jdbcTemplate.update(SQL_DELETE_SIGHTINGS_BY_HERO_ID, heroID);
+    }
 }
