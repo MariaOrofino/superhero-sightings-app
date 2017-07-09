@@ -42,11 +42,9 @@ public class HeroDaoJdbcImplTest {
         HeroDaoJdbcImpl instance = new HeroDaoJdbcImpl();
         Hero hero1 = new Hero();
         hero1.setHeroName("Wonder Woman");
-        hero1.setDescription("classic superhero");
         instance.addHero(hero1);
         Hero hero2 = new Hero();
         hero2.setHeroName("Spider Man");
-        hero2.setDescription("bitten by radio-active spider");
         instance.addHero(hero2);
         int expResult = 2;
         int result = instance.getAllHeros().size();
@@ -79,7 +77,6 @@ public class HeroDaoJdbcImplTest {
         HeroDaoJdbcImpl instance = new HeroDaoJdbcImpl();
         Hero hero = new Hero();
         hero.setHeroName("Wonder Woman");
-        hero.setDescription("classic superhero");
         instance.addHero(hero);
         int heroID = hero.getHeroID();
         Hero heroFromDao = instance.getHeroByID(heroID);
