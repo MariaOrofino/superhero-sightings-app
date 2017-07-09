@@ -1,19 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package twrog.superhero.dao;
 
 import java.time.LocalDate;
-import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.springframework.jdbc.core.JdbcTemplate;
+import twrog.superhero.dto.Hero;
+import twrog.superhero.dto.Location;
 import twrog.superhero.dto.Sighting;
 
 /**
@@ -25,120 +21,129 @@ public class SightingDaoJdbcImplTest {
     public SightingDaoJdbcImplTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     /**
-     * Test of setJdbcTemplate method, of class SightingDaoJdbcImpl.
+     * Test of addSighting and getSightingByID methods, of class SightingDaoJdbcImpl.
      */
     @Test
-    public void testSetJdbcTemplate() {
-        System.out.println("setJdbcTemplate");
-        JdbcTemplate jdbcTemplate = null;
-        SightingDaoJdbcImpl instance = new SightingDaoJdbcImpl();
-        instance.setJdbcTemplate(jdbcTemplate);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of addSighting method, of class SightingDaoJdbcImpl.
-     */
-    @Test
-    public void testAddSighting() {
+    public void testAddGetSighting() {
         System.out.println("addSighting");
-        Sighting sighting = null;
-        SightingDaoJdbcImpl instance = new SightingDaoJdbcImpl();
-        instance.addSighting(sighting);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        SightingDaoJdbcImpl sightingDao = new SightingDaoJdbcImpl();
+        HeroDaoJdbcImpl heroDao = new HeroDaoJdbcImpl();
+        LocationDaoJdbcImpl locationDao = new LocationDaoJdbcImpl();
+        Hero hero = new Hero();
+        hero.setHeroName("Wonder Woman");
+        hero.setDescription("classic superhero");
+        heroDao.addHero(hero);
+        Location location = new Location();
+        location.setLocationName("Destruction Lab");
+        location.setDescription("villain lab for quantum physics experiments");
+        location.setStreetAddress("1234 Hello St.");
+        location.setCity("Williamsburg");
+        location.setState("VA");
+        location.setZipcode("55410");
+        location.setLatitude(45.13);
+        location.setLongitude(81.99);
+        locationDao.addLocation(location);
+        Sighting sighting = new Sighting();
+        sighting.setDate(LocalDate.now());
+        sighting.setHero(hero);
+        sighting.setLocation(location);
+        sightingDao.addSighting(sighting);
+        int sightingID = sighting.getSightingID();
+        Sighting result = sightingDao.getSightingByID(sightingID);
+        assertEquals(sighting, result);
     }
-
+    
     /**
-     * Test of getSightingByID method, of class SightingDaoJdbcImpl.
+     * Test of getAllSightings method, of class SightingDaoJdbcImpl.
      */
     @Test
-    public void testGetSightingByID() {
-        System.out.println("getSightingByID");
-        int sightingID = 0;
-        SightingDaoJdbcImpl instance = new SightingDaoJdbcImpl();
-        Sighting expResult = null;
-        Sighting result = instance.getSightingByID(sightingID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetAllSightings() {
+        System.out.println("getAllSightings");
+        SightingDaoJdbcImpl sightingDao = new SightingDaoJdbcImpl();
+        HeroDaoJdbcImpl heroDao = new HeroDaoJdbcImpl();
+        LocationDaoJdbcImpl locationDao = new LocationDaoJdbcImpl();
+        Hero hero = new Hero();
+        hero.setHeroName("Wonder Woman");
+        heroDao.addHero(hero);
+        Location location = new Location();
+        location.setLocationName("Destruction Lab");
+        locationDao.addLocation(location);
+        Sighting sighting1 = new Sighting();
+        sighting1.setDate(LocalDate.now());
+        sighting1.setHero(hero);
+        sighting1.setLocation(location);
+        sightingDao.addSighting(sighting1);
+        Sighting sighting2 = new Sighting();
+        sighting2.setDate(LocalDate.parse("2017-02-03"));
+        sighting2.setHero(hero);
+        sighting2.setLocation(location);
+        sightingDao.addSighting(sighting2);
+        int expResult = 2;
+        int result = sightingDao.getAllSightings().size();
+        assertEquals(expResult,result);
     }
-
-    /**
-     * Test of getSightingsByDate method, of class SightingDaoJdbcImpl.
-     */
-    @Test
-    public void testGetSightingsByDate() {
-        System.out.println("getSightingsByDate");
-        LocalDate date = null;
-        SightingDaoJdbcImpl instance = new SightingDaoJdbcImpl();
-        List<Sighting> expResult = null;
-        List<Sighting> result = instance.getSightingsByDate(date);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getSightingsByLocationID method, of class SightingDaoJdbcImpl.
-     */
-    @Test
-    public void testGetSightingsByLocationID() {
-        System.out.println("getSightingsByLocationID");
-        int locationID = 0;
-        SightingDaoJdbcImpl instance = new SightingDaoJdbcImpl();
-        List<Sighting> expResult = null;
-        List<Sighting> result = instance.getSightingsByLocationID(locationID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+    
     /**
      * Test of updateSighting method, of class SightingDaoJdbcImpl.
      */
     @Test
     public void testUpdateSighting() {
         System.out.println("updateSighting");
-        int locationID = 0;
-        LocalDate date = null;
-        int heroID = 0;
-        int sightingID = 0;
-        SightingDaoJdbcImpl instance = new SightingDaoJdbcImpl();
-        instance.updateSighting(locationID, date, heroID, sightingID);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        SightingDaoJdbcImpl sightingDao = new SightingDaoJdbcImpl();
+        HeroDaoJdbcImpl heroDao = new HeroDaoJdbcImpl();
+        LocationDaoJdbcImpl locationDao = new LocationDaoJdbcImpl();
+        Hero hero1 = new Hero();
+        hero1.setHeroName("Wonder Woman");
+        heroDao.addHero(hero1);
+        Hero hero2 = new Hero();
+        hero2.setHeroName("Spider Man");
+        heroDao.addHero(hero2);
+        Location location1 = new Location();
+        location1.setLocationName("The White House");
+        locationDao.addLocation(location1);
+        Location location2 = new Location();
+        location2.setLocationName("Destruction Lab");
+        locationDao.addLocation(location2);
+        Sighting sighting = new Sighting();
+        sighting.setDate(LocalDate.now());
+        sighting.setHero(hero1);
+        sighting.setLocation(location1);
+        sightingDao.addSighting(sighting);
+        int sightingID = sighting.getSightingID();
+        sighting.setDate(LocalDate.parse("2017-02-03"));
+        sighting.setHero(hero2);
+        sighting.setLocation(location2);
+        sightingDao.updateSighting(sighting);
+        Sighting result = sightingDao.getSightingByID(sightingID);
+        assertEquals(sighting, result);
     }
-
+    
     /**
      * Test of deleteSightingByID method, of class SightingDaoJdbcImpl.
      */
     @Test
     public void testDeleteSightingByID() {
         System.out.println("deleteSightingByID");
-        int sightingID = 0;
-        SightingDaoJdbcImpl instance = new SightingDaoJdbcImpl();
-        instance.deleteSightingByID(sightingID);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        SightingDaoJdbcImpl sightingDao = new SightingDaoJdbcImpl();
+        HeroDaoJdbcImpl heroDao = new HeroDaoJdbcImpl();
+        LocationDaoJdbcImpl locationDao = new LocationDaoJdbcImpl();
+        Hero hero = new Hero();
+        hero.setHeroName("Wonder Woman");
+        heroDao.addHero(hero);
+        Location location = new Location();
+        location.setLocationName("Destruction Lab");
+        locationDao.addLocation(location);
+        Sighting sighting = new Sighting();
+        sighting.setDate(LocalDate.now());
+        sighting.setHero(hero);
+        sighting.setLocation(location);
+        sightingDao.addSighting(sighting);
+        int sightingID = sighting.getSightingID();
+        Sighting result = sightingDao.getSightingByID(sightingID);
+        assertEquals(sighting, result);
+        sightingDao.deleteSightingByID(sightingID);
+        assertNull(sightingDao.getSightingByID(sightingID));
     }
     
 }

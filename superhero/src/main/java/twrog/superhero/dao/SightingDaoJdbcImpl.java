@@ -80,8 +80,8 @@ public class SightingDaoJdbcImpl implements SightingDao {
         return jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_LOCATION_ID, new SightingMapper(), locationID);
     }
     @Override
-    public void updateSighting(int locationID, LocalDate date, int heroID, int sightingID) {
-        jdbcTemplate.update(SQL_UPDATE_SIGHTING_BY_ID, locationID, date.toString(), heroID, sightingID);
+    public void updateSighting(Sighting sighting) {
+        jdbcTemplate.update(SQL_UPDATE_SIGHTING_BY_ID, sighting.getLocation().getLocationID(), sighting.getDate().toString(), sighting.getHero().getHeroID(), sighting.getSightingID());
     }
     @Override
     public void deleteSightingByID(int sightingID) {

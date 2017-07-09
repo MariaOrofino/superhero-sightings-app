@@ -28,6 +28,6 @@ public interface SightingDao {
 
     List<Sighting> getSightingsByLocationID(int locationID);
 
-    void updateSighting(int locationID, LocalDate date, int heroID, int sightingID);
+    void updateSighting(Sighting sighting);
 
 }
