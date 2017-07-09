@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import twrog.superhero.dto.Hero;
@@ -48,8 +49,12 @@ public class SightingDaoJdbcImpl {
     public void addSighting(int locationID, LocalDate date, int heroID) {
         jdbcTemplate.update(SQL_INSERT_SIGHTING, locationID, date.toString(), heroID);
     }
-    public List<Sighting> getSightingByID(int sightingID) {
-        return jdbcTemplate.query(SQL_SELECT_SIGHTING_BY_ID, new SightingMapper(), sightingID);
+    public Sighting getSightingByID(int sightingID) {
+        try {
+        return jdbcTemplate.queryForObject(SQL_SELECT_SIGHTING_BY_ID, new SightingMapper(), sightingID);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
     public List<Sighting> getSightingsByDate(LocalDate date) {
         return jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_DATE, new SightingMapper(), date.toString());
