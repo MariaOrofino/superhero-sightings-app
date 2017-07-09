@@ -156,4 +156,18 @@ public class HeroDaoJdbcImpl {
     public void deleteHeroSuperPowerBySuperPowerID(int superPowerID) {
         jdbcTemplate.update(SQL_DELETE_HERO_SUPER_POWERS_BY_SUPER_POWER_ID, superPowerID);
     }
+    
+    private static final String SQL_INSERT_HERO_ORG = "insert into HeroOrganization (HeroID,OrganizationID) values (?,?)";
+    private static final String SQL_DELETE_HERO_ORG_BY_HERO_ID = "delete from HeroOrganization where HeroID = ?";
+    private static final String SQL_DELETE_HERO_ORG_BY_ORG_ID = "delete from HeroOrganization where OrganizationID = ?";
+    
+    public void addHeroOrg(int heroID, int orgID) {
+        jdbcTemplate.update(SQL_INSERT_HERO_ORG, heroID, orgID);
+    }
+    public void deleteHeroOrgByHeroID(int heroID) {
+        jdbcTemplate.update(SQL_DELETE_HERO_ORG_BY_HERO_ID, heroID);
+    }
+    public void deleteHeroOrgByOrgID(int orgID) {
+        jdbcTemplate.update(SQL_DELETE_HERO_ORG_BY_ORG_ID, orgID);
+    }
 }
