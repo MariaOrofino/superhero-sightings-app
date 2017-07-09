@@ -6,6 +6,8 @@
 
 package twrog.superhero.dto;
 
+import java.util.Objects;
+
 /**
  *
  * @author Travis Rogers
@@ -73,6 +75,55 @@ public class Organization {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + this.organizationID;
+        hash = 17 * hash + Objects.hashCode(this.orgName);
+        hash = 17 * hash + Objects.hashCode(this.description);
+        hash = 17 * hash + Objects.hashCode(this.streetAddress);
+        hash = 17 * hash + Objects.hashCode(this.city);
+        hash = 17 * hash + Objects.hashCode(this.state);
+        hash = 17 * hash + Objects.hashCode(this.zipcode);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Organization other = (Organization) obj;
+        if (this.organizationID != other.organizationID) {
+            return false;
+        }
+        if (!Objects.equals(this.orgName, other.orgName)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.streetAddress, other.streetAddress)) {
+            return false;
+        }
+        if (!Objects.equals(this.city, other.city)) {
+            return false;
+        }
+        if (!Objects.equals(this.state, other.state)) {
+            return false;
+        }
+        if (!Objects.equals(this.zipcode, other.zipcode)) {
+            return false;
+        }
+        return true;
     }
     
     

@@ -6,6 +6,8 @@
 
 package twrog.superhero.dto;
 
+import java.util.Objects;
+
 /**
  *
  * @author Travis Rogers
@@ -91,6 +93,63 @@ public class Location {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + this.locationID;
+        hash = 89 * hash + Objects.hashCode(this.locationName);
+        hash = 89 * hash + Objects.hashCode(this.description);
+        hash = 89 * hash + Objects.hashCode(this.streetAddress);
+        hash = 89 * hash + Objects.hashCode(this.city);
+        hash = 89 * hash + Objects.hashCode(this.state);
+        hash = 89 * hash + Objects.hashCode(this.zipcode);
+        hash = 89 * hash + (int) (Double.doubleToLongBits(this.latitude) ^ (Double.doubleToLongBits(this.latitude) >>> 32));
+        hash = 89 * hash + (int) (Double.doubleToLongBits(this.longitude) ^ (Double.doubleToLongBits(this.longitude) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Location other = (Location) obj;
+        if (this.locationID != other.locationID) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.latitude) != Double.doubleToLongBits(other.latitude)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.longitude) != Double.doubleToLongBits(other.longitude)) {
+            return false;
+        }
+        if (!Objects.equals(this.locationName, other.locationName)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.streetAddress, other.streetAddress)) {
+            return false;
+        }
+        if (!Objects.equals(this.city, other.city)) {
+            return false;
+        }
+        if (!Objects.equals(this.state, other.state)) {
+            return false;
+        }
+        if (!Objects.equals(this.zipcode, other.zipcode)) {
+            return false;
+        }
+        return true;
     }
     
     

@@ -18,7 +18,7 @@ import twrog.superhero.dto.SuperPower;
  *
  * @author Travis Rogers
  */
-public class SuperPowerDaoJdbcImpl {
+public class SuperPowerDaoJdbcImpl implements SuperPowerDao {
     private static final String SQL_INSERT_SUPER_POWER = "insert into SuperPower (Description) values (?)";
     private static final String SQL_SELECT_SUPER_POWER_BY_ID = "select * from SuperPower where SuperPowerID = ?";
     private static final String SQL_SELECT_ALL_SUPER_POWERS = "select * from SuperPower";
@@ -33,9 +33,11 @@ public class SuperPowerDaoJdbcImpl {
         this.jdbcTemplate = jdbcTemplate;
     }
     
+    @Override
     public void addSuperPower(SuperPower sp) {
         jdbcTemplate.update(SQL_INSERT_SUPER_POWER, sp.getDescription());
     }
+    @Override
     public SuperPower getSuperPowerByID(int superPowerID) {
         try {
             return jdbcTemplate.queryForObject(SQL_SELECT_SUPER_POWER_BY_ID, new SuperPowerMapper(), superPowerID);
@@ -43,15 +45,19 @@ public class SuperPowerDaoJdbcImpl {
             return null;
         }
     }
+    @Override
     public List<SuperPower> getAllSuperPowers() {
         return jdbcTemplate.query(SQL_SELECT_ALL_SUPER_POWERS, new SuperPowerMapper());
     }
+    @Override
     public List<SuperPower> getSuperPowersByHeroID(int heroID) {
         return jdbcTemplate.query(SQL_SELECT_SUPER_POWERS_BY_HERO_ID, new SuperPowerMapper(), heroID);
     }
+    @Override
     public void updateSuperPower(SuperPower sp) {
         jdbcTemplate.update(SQL_UPDATE_SUPER_POWER_BY_ID, sp.getDescription(), sp.getSuperPowerID());
     }
+    @Override
     public void deleteSuperPower(int superPowerID) {
         deleteHeroSuperPowerBySuperPowerID(superPowerID);
         jdbcTemplate.update(SQL_DELETE_SUPER_POWER_BY_ID, superPowerID);

@@ -7,6 +7,7 @@
 package twrog.superhero.dto;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  *
@@ -49,5 +50,43 @@ public class Sighting {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 23 * hash + this.sightingID;
+        hash = 23 * hash + Objects.hashCode(this.hero);
+        hash = 23 * hash + Objects.hashCode(this.location);
+        hash = 23 * hash + Objects.hashCode(this.date);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Sighting other = (Sighting) obj;
+        if (this.sightingID != other.sightingID) {
+            return false;
+        }
+        if (!Objects.equals(this.hero, other.hero)) {
+            return false;
+        }
+        if (!Objects.equals(this.location, other.location)) {
+            return false;
+        }
+        if (!Objects.equals(this.date, other.date)) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }

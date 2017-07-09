@@ -18,7 +18,7 @@ import twrog.superhero.dto.Organization;
  *
  * @author Travis Rogers
  */
-public class OrgDaoJdbcImpl {
+public class OrgDaoJdbcImpl implements OrgDao {
     private static final String SQL_INSERT_ORG =
             "insert into Organization (OrgName, Description, StreetAddress, City, State, Zipcode) "
             + "values (?, ?, ?, ?, ?, ?)";
@@ -39,6 +39,7 @@ public class OrgDaoJdbcImpl {
         this.jdbcTemplate = jdbcTemplate;
     }
     
+    @Override
     public void addOrg(Organization org) {
         jdbcTemplate.update(SQL_INSERT_ORG,
                 org.getOrgName(),
@@ -49,6 +50,7 @@ public class OrgDaoJdbcImpl {
                 org.getZipcode()
         );
     }
+    @Override
     public Organization getOrgByID(int orgID) {
         try {
             return jdbcTemplate.queryForObject(SQL_SELECT_ORG_BY_ID, new OrgMapper(), orgID);
@@ -56,12 +58,15 @@ public class OrgDaoJdbcImpl {
             return null;
         }
     }
+    @Override
     public List<Organization> getAllOrgs() {
         return jdbcTemplate.query(SQL_SELECT_ALL_ORGS, new OrgMapper());
     }
+    @Override
     public List<Organization> getOrgsByHeroID(int heroID) {
         return jdbcTemplate.query(SQL_SELECT_ORGS_BY_HER0_ID, new OrgMapper(), heroID);
     }
+    @Override
     public void updateOrg(Organization org) {
         jdbcTemplate.update(SQL_UPDATE_ORG_BY_ID,
                 org.getOrgName(),
@@ -73,6 +78,7 @@ public class OrgDaoJdbcImpl {
                 org.getOrganizationID()
         );
     }
+    @Override
     public void deleteOrg(int orgID) {
         deleteHeroOrgsByOrgID(orgID);
         jdbcTemplate.update(SQL_DELETE_ORG_BY_ID, orgID);
