@@ -16,7 +16,7 @@ import twrog.superhero.dto.Sighting;
  */
 public interface SightingDao {
 
-    void addSighting(int locationID, LocalDate date, int heroID);
+    void addSighting(Sighting sighting);
 
     void deleteSightingByID(int sightingID);
 

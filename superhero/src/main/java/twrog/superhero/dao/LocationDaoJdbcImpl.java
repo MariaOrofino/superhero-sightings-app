@@ -12,6 +12,8 @@ import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import twrog.superhero.dto.Location;
 
 /**
@@ -42,6 +44,7 @@ public class LocationDaoJdbcImpl implements LocationDao {
     }
     
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void addLocation(Location location) {
         jdbcTemplate.update(SQL_INSERT_LOCATION,
                 location.getLocationName(),
@@ -53,6 +56,8 @@ public class LocationDaoJdbcImpl implements LocationDao {
                 location.getLatitude(),
                 location.getLongitude()
         );
+        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+        location.setLocationID(id);
     }
     @Override
     public Location getLocationByID(int locationID) {

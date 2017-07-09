@@ -13,6 +13,8 @@ import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import twrog.superhero.dto.Hero;
 import twrog.superhero.dto.Sighting;
 import twrog.superhero.dto.Location;
@@ -47,13 +49,16 @@ public class SightingDaoJdbcImpl implements SightingDao {
     }
     
     @Override
-    public void addSighting(int locationID, LocalDate date, int heroID) {
-        jdbcTemplate.update(SQL_INSERT_SIGHTING, locationID, date.toString(), heroID);
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void addSighting(Sighting sighting) {
+        jdbcTemplate.update(SQL_INSERT_SIGHTING, sighting.getLocation().getLocationID(), sighting.getDate().toString(), sighting.getHero().getHeroID());
+        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+        sighting.setSightingID(id);
     }
     @Override
     public Sighting getSightingByID(int sightingID) {
         try {
-        return jdbcTemplate.queryForObject(SQL_SELECT_SIGHTING_BY_ID, new SightingMapper(), sightingID);
+            return jdbcTemplate.queryForObject(SQL_SELECT_SIGHTING_BY_ID, new SightingMapper(), sightingID);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }

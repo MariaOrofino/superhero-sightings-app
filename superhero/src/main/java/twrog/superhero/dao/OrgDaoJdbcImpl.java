@@ -12,6 +12,8 @@ import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import twrog.superhero.dto.Organization;
 
 /**
@@ -40,6 +42,7 @@ public class OrgDaoJdbcImpl implements OrgDao {
     }
     
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void addOrg(Organization org) {
         jdbcTemplate.update(SQL_INSERT_ORG,
                 org.getOrgName(),
@@ -49,6 +52,8 @@ public class OrgDaoJdbcImpl implements OrgDao {
                 org.getState(),
                 org.getZipcode()
         );
+        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+        org.setOrganizationID(id);
     }
     @Override
     public Organization getOrgByID(int orgID) {

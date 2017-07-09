@@ -11,6 +11,8 @@ import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import twrog.superhero.dto.Hero;
 
 /**
@@ -41,8 +43,11 @@ public class HeroDaoJdbcImpl implements HeroDao {
     }
     
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void addHero(Hero hero) {
         jdbcTemplate.update(SQL_INSERT_HERO, hero.getHeroName(), hero.getDescription());
+        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+        hero.setHeroID(id);
     }
     @Override
     public Hero getHeroByID(int heroID) {

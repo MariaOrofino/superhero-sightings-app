@@ -12,6 +12,8 @@ import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import twrog.superhero.dto.SuperPower;
 
 /**
@@ -34,8 +36,11 @@ public class SuperPowerDaoJdbcImpl implements SuperPowerDao {
     }
     
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void addSuperPower(SuperPower sp) {
         jdbcTemplate.update(SQL_INSERT_SUPER_POWER, sp.getDescription());
+        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+        sp.setSuperPowerID(id);
     }
     @Override
     public SuperPower getSuperPowerByID(int superPowerID) {
