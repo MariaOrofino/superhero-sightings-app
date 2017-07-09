@@ -23,7 +23,7 @@ import twrog.superhero.dto.HeroSighting;
  * @author Travis Rogers
  */
 public class HeroDaoJdbcImpl {
-    private static final String SQL_SELECT_ALL_LOCATIONS = "select * from Location";
+
     private static final String SQL_SELECT_ALL_HEROS = "select * from Hero";
     private static final String SQL_SELECT_HEROS_BY_LOCATION_ID =
             "select Hero.* from Hero" +
@@ -36,12 +36,6 @@ public class HeroDaoJdbcImpl {
             "inner join HeroOrganization on HeroOrganization.HeroID = Hero.HeroID" +
             "inner join Organization on Organization.OrganizationID = HeroOrganization.OrganizationID" +
             "where Organization.OrganizationID = ?";
-    private static final String SQL_SELECT_LOCATIONS_BY_HERO_ID =
-            "select Location.* from Location" +
-            "inner join Sighting on Location.LocationID = Sighting.LocationID" +
-            "inner join HeroSighting on Sighting.SightingID = HeroSighting.SightingID" +
-            "inner join Hero on Hero.HeroID = HeroSighting.HeroID" +
-            "where Hero.HeroID = ?";
 
     private static final String SQL_SELECT_SIGHTINGS_BY_DATE =
             "select Hero.*, Location.*, HeroSighting.SightingID from Location" +
@@ -68,19 +62,12 @@ public class HeroDaoJdbcImpl {
     public List<Hero> getAllHeros() {
         return jdbcTemplate.query(SQL_SELECT_ALL_HEROS, new HeroMapper());
     }
-    public List<Location> getAllLocations() {
-        return jdbcTemplate.query(SQL_SELECT_ALL_LOCATIONS, new LocationMapper());
-    }
     public List<Hero> getHerosByLocationID(int locationID) {
         return jdbcTemplate.query(SQL_SELECT_HEROS_BY_LOCATION_ID, new HeroMapper(), locationID);
     }
     public List<Hero> getHerosByOrganizationID(int organizationID) {
         return jdbcTemplate.query(SQL_SELECT_HEROS_BY_ORGANIZATION_ID, new HeroMapper(), organizationID);
     }
-    public List<Location> getLocationsByHeroID(int heroID) {
-        return jdbcTemplate.query(SQL_SELECT_LOCATIONS_BY_HERO_ID, new LocationMapper(), heroID);
-    }
-
     public List<HeroSighting> getSightingsByDate(LocalDate date) {
         return jdbcTemplate.query(SQL_SELECT_SIGHTINGS_BY_DATE, new HeroSightingMapper(), date.toString());
     }
@@ -101,22 +88,7 @@ public class HeroDaoJdbcImpl {
             return hero;
         }
     }
-    private static final class LocationMapper implements RowMapper<Location> {
-        @Override
-        public Location mapRow(ResultSet rs, int i) throws SQLException {
-            Location location = new Location();
-            location.setLocationID(rs.getInt("LocationID"));
-            location.setLocationName(rs.getString("LocationName"));
-            location.setDescription(rs.getString("Description"));
-            location.setStreetAddress(rs.getString("StreetAddress"));
-            location.setCity(rs.getString("City"));
-            location.setState(rs.getString("State"));
-            location.setZipcode(rs.getString("Zipcode"));
-            location.setLatitude(String.valueOf(rs.getDouble("Latitude")));
-            location.setLongitude(String.valueOf(rs.getDouble("Longitude")));
-            return location;
-        }
-    }
+
 
     private static final class HeroSightingMapper implements RowMapper<HeroSighting> {
         @Override
