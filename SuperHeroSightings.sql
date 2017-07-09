@@ -44,17 +44,10 @@ create table Sighting (
 SightingID bigint unsigned not null auto_increment,
 LocationID bigint unsigned not null,
 SightingDate date not null,
+HeroID smallint unsigned not null,
 primary key (SightingID),
 foreign key (LocationID)
-references Location (LocationID)
-);
-
-create table HeroSighting (
-SightingID bigint unsigned not null,
-HeroID smallint unsigned not null,
-primary key (SightingID, HeroID),
-foreign key (SightingID)
-references Sighting (SightingID),
+references Location (LocationID),
 foreign key (HeroID)
 references Hero (HeroID)
 );
