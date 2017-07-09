@@ -53,6 +53,7 @@ public class SuperPowerDaoJdbcImpl {
         jdbcTemplate.update(SQL_UPDATE_SUPER_POWER_BY_ID, sp.getDescription(), sp.getSuperPowerID());
     }
     public void deleteSuperPower(int superPowerID) {
+        deleteHeroSuperPowerBySuperPowerID(superPowerID);
         jdbcTemplate.update(SQL_DELETE_SUPER_POWER_BY_ID, superPowerID);
     }
     
@@ -64,5 +65,11 @@ public class SuperPowerDaoJdbcImpl {
             sp.setDescription(rs.getString("Description"));
             return sp;
         }
+    }
+    
+    private static final String SQL_DELETE_HERO_SUPER_POWERS_BY_SUPER_POWER_ID = "delete from HeroSuperPower where SuperPowerID = ?";
+    
+    private void deleteHeroSuperPowerBySuperPowerID(int superPowerID) {
+        jdbcTemplate.update(SQL_DELETE_HERO_SUPER_POWERS_BY_SUPER_POWER_ID, superPowerID);
     }
 }

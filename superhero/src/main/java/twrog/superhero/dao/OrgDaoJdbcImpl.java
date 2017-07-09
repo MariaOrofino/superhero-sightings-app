@@ -74,6 +74,7 @@ public class OrgDaoJdbcImpl {
         );
     }
     public void deleteOrg(int orgID) {
+        deleteHeroOrgByOrgID(orgID);
         jdbcTemplate.update(SQL_DELETE_ORG_BY_ID, orgID);
     }
     
@@ -90,5 +91,11 @@ public class OrgDaoJdbcImpl {
             org.setZipcode(rs.getString("Zipcode"));
             return org;
         }
+    }
+    
+    private static final String SQL_DELETE_HERO_ORG_BY_ORG_ID = "delete from HeroOrganization where OrganizationID = ?";
+    
+    private void deleteHeroOrgByOrgID(int orgID) {
+        jdbcTemplate.update(SQL_DELETE_HERO_ORG_BY_ORG_ID, orgID);
     }
 }
