@@ -1,2 +1,3 @@
 # superhero-sightings-app
-In progress. Java Application using Spring, JSP, JDBC, MySQL.
+In progress. Full stack Java web application with CRUD functionality for superhero 
+sightings, attributes, and organizations; uses Spring Core / MVC, JSP, JDBC, and MySQL.
