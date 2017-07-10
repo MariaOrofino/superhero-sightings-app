@@ -29,10 +29,9 @@ public class LocationDaoJdbcImpl implements LocationDao {
     private static final String SQL_SELECT_ALL_LOCATIONS = "select * from Location";
     private static final String SQL_SELECT_LOCATIONS_BY_HERO_ID =
             "select Location.* from Location" +
-            "inner join Sighting on Location.LocationID = Sighting.LocationID" +
-            "inner join HeroSighting on Sighting.SightingID = HeroSighting.SightingID" +
-            "inner join Hero on Hero.HeroID = HeroSighting.HeroID" +
-            "where Hero.HeroID = ?";
+            " inner join Sighting on Location.LocationID = Sighting.LocationID" +
+            " inner join Hero on Hero.HeroID = Sighting.HeroID" +
+            " where Hero.HeroID = ?";
     private static final String SQL_UPDATE_LOCATION_BY_ID = "update Location "
             + "set LocationName = ?, Description = ?, StreetAddress = ?, City = ?, State = ?, Zipcode = ?, Latitude = ?, Longitude = ? "
             + "where LocationID = ?";
