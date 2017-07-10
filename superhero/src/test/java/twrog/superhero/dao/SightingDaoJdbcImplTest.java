@@ -7,6 +7,7 @@ package twrog.superhero.dao;
 
 import java.time.LocalDate;
 import java.util.List;
+import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -34,6 +35,22 @@ public class SightingDaoJdbcImplTest {
         sightingDao = ctx.getBean("sightingDao", SightingDao.class);
         locationDao = ctx.getBean("locationDao", LocationDao.class);
         heroDao = ctx.getBean("heroDao", HeroDao.class);
+        List<Sighting> sightings = sightingDao.getAllSightings();
+        for (Sighting sighting : sightings) {
+            sightingDao.deleteSightingByID(sighting.getSightingID());
+        }
+        List<Hero> heros = heroDao.getAllHeros();
+        for (Hero hero : heros) {
+            heroDao.deleteHeroByID(hero.getHeroID());
+        }
+        List<Location> locations = locationDao.getAllLocations();
+        for (Location location : locations) {
+            locationDao.deleteLocationByID(location.getLocationID());
+        }
+    }
+    
+    @After
+    public void tearDown() {
         List<Sighting> sightings = sightingDao.getAllSightings();
         for (Sighting sighting : sightings) {
             sightingDao.deleteSightingByID(sighting.getSightingID());
