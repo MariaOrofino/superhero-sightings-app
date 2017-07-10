@@ -19,7 +19,7 @@ import twrog.superhero.dto.Sighting;
 
 /**
  *
- * @author 7ravis
+ * @author Travis Rogers
  */
 public class SightingDaoJdbcImplTest {
     SightingDao sightingDao;

@@ -17,7 +17,7 @@ import twrog.superhero.dto.Organization;
 
 /**
  *
- * @author 7ravis
+ * @author Travis Rogers
  */
 public class OrgDaoJdbcImplTest {
     OrgDao orgDao;
