@@ -27,23 +27,23 @@ public class SightingDaoJdbcImpl implements SightingDao {
     private static final String SQL_INSERT_SIGHTING = "insert into Sighting (LocationID, SightingDate, HeroID) values (?,?,?)";
     private static final String SQL_SELECT_SIGHTING_BY_ID =
             "select Hero.*, Location.*, Sighting.SightingID, Sighting.SightingDate from Location" +
-            "inner join Sighting on Location.LocationID = Sighting.LocationID" +
-            "inner join Hero on Hero.HeroID = Sighting.HeroID" +
-            "where Sighting.SightingID = ?";
+            " inner join Sighting on Location.LocationID = Sighting.LocationID" +
+            " inner join Hero on Hero.HeroID = Sighting.HeroID" +
+            " where Sighting.SightingID = ?";
     private static final String SQL_SELECT_ALL_SIGHTINGS = 
             "select Hero.*, Location.*, Sighting.SightingID, Sighting.SightingDate from Location" +
-            "inner join Sighting on Location.LocationID = Sighting.LocationID" +
-            "inner join Hero on Hero.HeroID = Sighting.HeroID";
+            " inner join Sighting on Location.LocationID = Sighting.LocationID" +
+            " inner join Hero on Hero.HeroID = Sighting.HeroID";
     private static final String SQL_SELECT_SIGHTINGS_BY_DATE =
             "select Hero.*, Location.*, Sighting.SightingID, Sighting.SightingDate from Location" +
-            "inner join Sighting on Location.LocationID = Sighting.LocationID" +
-            "inner join Hero on Hero.HeroID = Sighting.HeroID" +
-            "where Sighting.SightingDate = ?";
+            " inner join Sighting on Location.LocationID = Sighting.LocationID" +
+            " inner join Hero on Hero.HeroID = Sighting.HeroID" +
+            " where Sighting.SightingDate = ?";
     private static final String SQL_SELECT_SIGHTINGS_BY_LOCATION_ID =
             "select Hero.*, Location.*, Sighting.SightingID, Sighting.SightingDate from Location" +
-            "inner join Sighting on Location.LocationID = Sighting.LocationID" +
-            "inner join Hero on Hero.HeroID = Sighting.HeroID" +
-            "where Location.LocationID = ?";
+            " inner join Sighting on Location.LocationID = Sighting.LocationID" +
+            " inner join Hero on Hero.HeroID = Sighting.HeroID" +
+            " where Location.LocationID = ?";
     private static final String SQL_UPDATE_SIGHTING_BY_ID = "update Sighting set LocationID = ?, SightingDate = ?, HeroID = ? where SightingID = ?";
     private static final String SQL_DELETE_SIGHTING_BY_ID = "delete from Sighting where SightingID = ?";
     

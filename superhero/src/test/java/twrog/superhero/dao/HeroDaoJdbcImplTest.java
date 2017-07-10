@@ -5,8 +5,12 @@
 */
 package twrog.superhero.dao;
 
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import twrog.superhero.dto.Hero;
 
 /**
@@ -14,8 +18,19 @@ import twrog.superhero.dto.Hero;
  * @author 7ravis
  */
 public class HeroDaoJdbcImplTest {
+    HeroDao instance;
     
     public HeroDaoJdbcImplTest() {
+    }
+    
+    @Before
+    public void setUp() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        instance = ctx.getBean("heroDao", HeroDao.class);
+        List<Hero> heros = instance.getAllHeros();
+        for (Hero hero : heros) {
+            instance.deleteHeroByID(hero.getHeroID());
+        }
     }
     
     /**
@@ -24,7 +39,6 @@ public class HeroDaoJdbcImplTest {
     @Test
     public void testAddGetHero() {
         System.out.println("addHero");
-        HeroDaoJdbcImpl instance = new HeroDaoJdbcImpl();
         Hero hero = new Hero();
         hero.setHeroName("Wonder Woman");
         hero.setDescription("classic superhero");
@@ -39,7 +53,6 @@ public class HeroDaoJdbcImplTest {
     @Test
     public void testGetAllHeros() {
         System.out.println("getAllHeros");
-        HeroDaoJdbcImpl instance = new HeroDaoJdbcImpl();
         Hero hero1 = new Hero();
         hero1.setHeroName("Wonder Woman");
         instance.addHero(hero1);
@@ -57,7 +70,6 @@ public class HeroDaoJdbcImplTest {
     @Test
     public void testUpdateHero() {
         System.out.println("updateHero");
-        HeroDaoJdbcImpl instance = new HeroDaoJdbcImpl();
         Hero hero = new Hero();
         hero.setHeroName("Wonder Woman");
         hero.setDescription("classic superhero");
@@ -74,7 +86,6 @@ public class HeroDaoJdbcImplTest {
     @Test
     public void testDeleteHeroByID() {
         System.out.println("deleteHeroByID");
-        HeroDaoJdbcImpl instance = new HeroDaoJdbcImpl();
         Hero hero = new Hero();
         hero.setHeroName("Wonder Woman");
         instance.addHero(hero);

@@ -6,8 +6,12 @@
 package twrog.superhero.dao;
 
 import java.time.LocalDate;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import twrog.superhero.dto.Hero;
 import twrog.superhero.dto.Location;
 import twrog.superhero.dto.Sighting;
@@ -17,8 +21,31 @@ import twrog.superhero.dto.Sighting;
  * @author 7ravis
  */
 public class SightingDaoJdbcImplTest {
+    SightingDao sightingDao;
+    LocationDao locationDao;
+    HeroDao heroDao;
     
     public SightingDaoJdbcImplTest() {
+    }
+    
+    @Before
+    public void setUp() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        sightingDao = ctx.getBean("sightingDao", SightingDao.class);
+        locationDao = ctx.getBean("locationDao", LocationDao.class);
+        heroDao = ctx.getBean("heroDao", HeroDao.class);
+        List<Sighting> sightings = sightingDao.getAllSightings();
+        for (Sighting sighting : sightings) {
+            sightingDao.deleteSightingByID(sighting.getSightingID());
+        }
+        List<Hero> heros = heroDao.getAllHeros();
+        for (Hero hero : heros) {
+            heroDao.deleteHeroByID(hero.getHeroID());
+        }
+        List<Location> locations = locationDao.getAllLocations();
+        for (Location location : locations) {
+            locationDao.deleteLocationByID(location.getLocationID());
+        }
     }
     
     /**
@@ -26,23 +53,13 @@ public class SightingDaoJdbcImplTest {
      */
     @Test
     public void testAddGetSighting() {
-        System.out.println("addSighting");
-        SightingDaoJdbcImpl sightingDao = new SightingDaoJdbcImpl();
-        HeroDaoJdbcImpl heroDao = new HeroDaoJdbcImpl();
-        LocationDaoJdbcImpl locationDao = new LocationDaoJdbcImpl();
+        System.out.println("addSighting");        
         Hero hero = new Hero();
         hero.setHeroName("Wonder Woman");
-        hero.setDescription("classic superhero");
         heroDao.addHero(hero);
         Location location = new Location();
         location.setLocationName("Destruction Lab");
-        location.setDescription("villain lab for quantum physics experiments");
-        location.setStreetAddress("1234 Hello St.");
-        location.setCity("Williamsburg");
-        location.setState("VA");
-        location.setZipcode("55410");
-        location.setLatitude(45.13);
-        location.setLongitude(81.99);
+        location.setDescription("hello");
         locationDao.addLocation(location);
         Sighting sighting = new Sighting();
         sighting.setDate(LocalDate.now());
@@ -60,9 +77,6 @@ public class SightingDaoJdbcImplTest {
     @Test
     public void testGetAllSightings() {
         System.out.println("getAllSightings");
-        SightingDaoJdbcImpl sightingDao = new SightingDaoJdbcImpl();
-        HeroDaoJdbcImpl heroDao = new HeroDaoJdbcImpl();
-        LocationDaoJdbcImpl locationDao = new LocationDaoJdbcImpl();
         Hero hero = new Hero();
         hero.setHeroName("Wonder Woman");
         heroDao.addHero(hero);
@@ -90,9 +104,6 @@ public class SightingDaoJdbcImplTest {
     @Test
     public void testUpdateSighting() {
         System.out.println("updateSighting");
-        SightingDaoJdbcImpl sightingDao = new SightingDaoJdbcImpl();
-        HeroDaoJdbcImpl heroDao = new HeroDaoJdbcImpl();
-        LocationDaoJdbcImpl locationDao = new LocationDaoJdbcImpl();
         Hero hero1 = new Hero();
         hero1.setHeroName("Wonder Woman");
         heroDao.addHero(hero1);
@@ -125,9 +136,6 @@ public class SightingDaoJdbcImplTest {
     @Test
     public void testDeleteSightingByID() {
         System.out.println("deleteSightingByID");
-        SightingDaoJdbcImpl sightingDao = new SightingDaoJdbcImpl();
-        HeroDaoJdbcImpl heroDao = new HeroDaoJdbcImpl();
-        LocationDaoJdbcImpl locationDao = new LocationDaoJdbcImpl();
         Hero hero = new Hero();
         hero.setHeroName("Wonder Woman");
         heroDao.addHero(hero);

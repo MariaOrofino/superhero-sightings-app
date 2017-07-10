@@ -24,7 +24,6 @@ public class Service {
     SightingDao sightingDao;
     SuperPowerDao superPowerDao;
 
-    @Inject
     public Service(HeroDao heroDao, LocationDao locationDao, OrgDao orgDao, SightingDao sightingDao, SuperPowerDao superPowerDao) {
         this.heroDao = heroDao;
         this.locationDao = locationDao;

@@ -54,6 +54,13 @@
     <bean id="superPowerDao" class="twrog.superhero.dao.SuperPowerDaoJdbcImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
+    <bean id="service" class="twrog.superhero.service.Service">
+        <constructor-arg ref="heroDao"/>
+        <constructor-arg ref="locationDao"/>
+        <constructor-arg ref="orgDao"/>
+        <constructor-arg ref="sightingDao"/>
+        <constructor-arg ref="superPowerDao"/>
+    </bean>
     
 
 </beans>

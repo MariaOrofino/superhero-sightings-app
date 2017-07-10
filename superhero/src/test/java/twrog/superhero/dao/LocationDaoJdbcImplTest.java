@@ -5,8 +5,15 @@
 */
 package twrog.superhero.dao;
 
+import java.util.List;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import twrog.superhero.dto.Location;
 
 /**
@@ -14,8 +21,31 @@ import twrog.superhero.dto.Location;
  * @author 7ravis
  */
 public class LocationDaoJdbcImplTest {
+    LocationDao instance;
     
     public LocationDaoJdbcImplTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {        
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {        
+    }
+    
+    @Before
+    public void setUp() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        instance = ctx.getBean("locationDao", LocationDao.class);
+        List<Location> locations = instance.getAllLocations();
+        for (Location location : locations) {
+            instance.deleteLocationByID(location.getLocationID());
+        }
+    }
+    
+    @After
+    public void tearDown() {        
     }
     
     /**
@@ -24,7 +54,6 @@ public class LocationDaoJdbcImplTest {
     @Test
     public void testAddGetLocation() {
         System.out.println("addLocation");
-        LocationDaoJdbcImpl instance = new LocationDaoJdbcImpl();
         Location location = new Location();
         location.setLocationName("Destruction Lab");
         location.setDescription("villain lab for quantum physics experiments");
@@ -46,7 +75,6 @@ public class LocationDaoJdbcImplTest {
     @Test
     public void testGetAllLocations() {
         System.out.println("getAllLocations");
-        LocationDaoJdbcImpl instance = new LocationDaoJdbcImpl();
         Location location1 = new Location();
         location1.setLocationName("The White House");
         instance.addLocation(location1);
@@ -64,7 +92,6 @@ public class LocationDaoJdbcImplTest {
     @Test
     public void testUpdateLocation() {
         System.out.println("updateLocation");
-        LocationDaoJdbcImpl instance = new LocationDaoJdbcImpl();
         Location location = new Location();
         location.setLocationName("Destruction Lab");
         location.setDescription("villain lab for quantum physics experiments");
@@ -95,7 +122,6 @@ public class LocationDaoJdbcImplTest {
     @Test
     public void testDeleteLocationByID() {
         System.out.println("deleteLocationByID");
-        LocationDaoJdbcImpl instance = new LocationDaoJdbcImpl();
         Location location = new Location();
         location.setLocationName("Destruction Lab");
         instance.addLocation(location);

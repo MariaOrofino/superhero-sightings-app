@@ -5,8 +5,15 @@
 */
 package twrog.superhero.dao;
 
+import java.util.List;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import twrog.superhero.dto.Organization;
 
 /**
@@ -14,8 +21,19 @@ import twrog.superhero.dto.Organization;
  * @author 7ravis
  */
 public class OrgDaoJdbcImplTest {
+    OrgDao instance;
     
     public OrgDaoJdbcImplTest() {
+    }
+    
+    @Before
+    public void setUp() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
+        instance = ctx.getBean("orgDao", OrgDao.class);
+        List<Organization> orgs = instance.getAllOrgs();
+        for (Organization org : orgs) {
+            instance.deleteOrg(org.getOrganizationID());
+        }
     }
     
     /**
@@ -24,7 +42,6 @@ public class OrgDaoJdbcImplTest {
     @Test
     public void testAddGetOrg() {
         System.out.println("addOrg");
-        OrgDaoJdbcImpl instance = new OrgDaoJdbcImpl();
         Organization org = new Organization();
         org.setOrgName("Justice League");
         org.setDescription("group of heros trying to make the world a better place");
@@ -44,7 +61,6 @@ public class OrgDaoJdbcImplTest {
     @Test
     public void testGetAllOrgs() {
         System.out.println("getAllOrgs");
-        OrgDaoJdbcImpl instance = new OrgDaoJdbcImpl();
         Organization org1 = new Organization();
         org1.setOrgName("Justice League");
         instance.addOrg(org1);
@@ -62,7 +78,6 @@ public class OrgDaoJdbcImplTest {
     @Test
     public void testUpdateOrg() {
         System.out.println("updateOrg");
-        OrgDaoJdbcImpl instance = new OrgDaoJdbcImpl();
         Organization org = new Organization();
         org.setOrgName("Justice League");
         org.setDescription("group of heros trying to make the world a better place");
@@ -89,7 +104,6 @@ public class OrgDaoJdbcImplTest {
     @Test
     public void testDeleteOrg() {
         System.out.println("deleteOrg");
-        OrgDaoJdbcImpl instance = new OrgDaoJdbcImpl();
         Organization org = new Organization();
         org.setOrgName("Justice League");
         instance.addOrg(org);

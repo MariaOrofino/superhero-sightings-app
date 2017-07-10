@@ -55,8 +55,8 @@ public class Sighting {
     public int hashCode() {
         int hash = 5;
         hash = 23 * hash + this.sightingID;
-        hash = 23 * hash + Objects.hashCode(this.hero);
-        hash = 23 * hash + Objects.hashCode(this.location);
+        hash = 23 * hash + Objects.hashCode(this.hero.getHeroID());
+        hash = 23 * hash + Objects.hashCode(this.location.getLocationID());
         hash = 23 * hash + Objects.hashCode(this.date);
         return hash;
     }
@@ -76,10 +76,10 @@ public class Sighting {
         if (this.sightingID != other.sightingID) {
             return false;
         }
-        if (!Objects.equals(this.hero, other.hero)) {
+        if (this.hero.getHeroID() != other.hero.getHeroID()) {
             return false;
         }
-        if (!Objects.equals(this.location, other.location)) {
+        if (this.location.getLocationID() != other.location.getLocationID()) {
             return false;
         }
         if (!Objects.equals(this.date, other.date)) {
