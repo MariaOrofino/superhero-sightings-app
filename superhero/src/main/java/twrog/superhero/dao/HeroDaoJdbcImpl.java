@@ -51,7 +51,7 @@ public class HeroDaoJdbcImpl implements HeroDao {
     @Override
     public Hero getHeroByID(int heroID) {
         try {
-        return jdbcTemplate.queryForObject(SQL_SELECT_HERO_BY_ID, new HeroMapper(), heroID);
+            return jdbcTemplate.queryForObject(SQL_SELECT_HERO_BY_ID, new HeroMapper(), heroID);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -73,13 +73,14 @@ public class HeroDaoJdbcImpl implements HeroDao {
         jdbcTemplate.update(SQL_UPDATE_HERO_BY_ID, hero.getHeroName(), hero.getDescription(), hero.getHeroID());
     }
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void deleteHeroByID(int heroID) {
         deleteHeroOrgsByHeroID(heroID);
         deleteSightingsByHeroID(heroID);
         deleteHeroSuperPowersByHeroID(heroID);
         jdbcTemplate.update(SQL_DELETE_HERO_BY_ID, heroID);
     }
-                            
+    
     private static final class HeroMapper implements RowMapper<Hero> {
         @Override
         public Hero mapRow(ResultSet rs, int i) throws SQLException {
@@ -93,7 +94,7 @@ public class HeroDaoJdbcImpl implements HeroDao {
     
     private static final String SQL_INSERT_HERO_SUPER_POWER = "insert into HeroSuperPower (HeroID, SuperPowerID) values (?,?)";
     private static final String SQL_DELETE_HERO_SUPER_POWER = "delete from HeroSuperPower where HeroID = ? and SuperPowerID = ?";
-    private static final String SQL_DELETE_HERO_SUPER_POWERS_BY_HERO_ID = "delete from HeroSuperPower where HeroID = ?";    
+    private static final String SQL_DELETE_HERO_SUPER_POWERS_BY_HERO_ID = "delete from HeroSuperPower where HeroID = ?";
     @Override
     public void addHeroSuperPower(int heroID, int superPowerID) {
         jdbcTemplate.update(SQL_INSERT_HERO_SUPER_POWER, heroID, superPowerID);
@@ -108,7 +109,7 @@ public class HeroDaoJdbcImpl implements HeroDao {
     
     private static final String SQL_INSERT_HERO_ORG = "insert into HeroOrganization (HeroID,OrganizationID) values (?,?)";
     private static final String SQL_DELETE_HERO_ORG = "delete from HeroOrganization where HeroID = ? and OrganizationID = ?";
-    private static final String SQL_DELETE_HERO_ORG_BY_HERO_ID = "delete from HeroOrganization where HeroID = ?";        
+    private static final String SQL_DELETE_HERO_ORG_BY_HERO_ID = "delete from HeroOrganization where HeroID = ?";
     @Override
     public void addHeroOrg(int heroID, int orgID) {
         jdbcTemplate.update(SQL_INSERT_HERO_ORG, heroID, orgID);
@@ -120,7 +121,7 @@ public class HeroDaoJdbcImpl implements HeroDao {
     private void deleteHeroOrgsByHeroID(int heroID) {
         jdbcTemplate.update(SQL_DELETE_HERO_ORG_BY_HERO_ID, heroID);
     }
-
+    
     private static final String SQL_DELETE_SIGHTINGS_BY_HERO_ID = "delete from Sighting where HeroID = ?";
     private void deleteSightingsByHeroID(int heroID) {
         jdbcTemplate.update(SQL_DELETE_SIGHTINGS_BY_HERO_ID, heroID);

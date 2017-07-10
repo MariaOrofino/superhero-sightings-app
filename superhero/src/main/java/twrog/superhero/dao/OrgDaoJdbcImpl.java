@@ -84,6 +84,7 @@ public class OrgDaoJdbcImpl implements OrgDao {
         );
     }
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void deleteOrg(int orgID) {
         deleteHeroOrgsByOrgID(orgID);
         jdbcTemplate.update(SQL_DELETE_ORG_BY_ID, orgID);

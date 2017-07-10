@@ -64,6 +64,7 @@ public class SuperPowerDaoJdbcImpl implements SuperPowerDao {
         jdbcTemplate.update(SQL_UPDATE_SUPER_POWER_BY_ID, sp.getDescription(), sp.getSuperPowerID());
     }
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void deleteSuperPower(int superPowerID) {
         deleteHeroSuperPowerBySuperPowerID(superPowerID);
         jdbcTemplate.update(SQL_DELETE_SUPER_POWER_BY_ID, superPowerID);
