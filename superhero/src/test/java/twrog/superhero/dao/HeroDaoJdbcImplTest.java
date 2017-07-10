@@ -69,11 +69,6 @@ public class HeroDaoJdbcImplTest {
         assertEquals(hero, result);
     }
     
-//    /**
-//     * Test of addHeroOrg method, of class HeroDaoJdbcImpl.
-//     */
-//    public void testAddHeroOrg
-    
     /**
      * Test of getAllHeros method, of class HeroDaoJdbcImpl.
      */
@@ -133,16 +128,14 @@ public class HeroDaoJdbcImplTest {
         List<Hero> result = heroDao.getHerosByLocationID(location2.getLocationID());
         assertTrue(result.stream().anyMatch(h -> h.getHeroID() == heroId2));
         assertTrue(result.stream().anyMatch(h -> h.getHeroID() == heroId3));
-//        assertTrue(result.stream().anyMatch(s -> s.getSightingID() == id2));
-//        assertTrue(result.stream().anyMatch(s -> s.getSightingID() == id3));
         assertTrue(result.size() == 2);
     }
     
     /**
-     * Test of getHerosByOrganizationID and addHeroOrg methods, of class HeroDaoJdbcImpl.
+     * Test of addHeroOrg and getHerosByOrganizationID methods, of class HeroDaoJdbcImpl.
      */
     @Test
-    public void testAddGetHerosByOrganization() {
+    public void testAddGetHeroOrgs() {
         System.out.println("getHerosByOrganizationID, addHeroOrg");
         Hero hero1 = new Hero();
         hero1.setHeroName("Wonder Woman");

@@ -79,6 +79,8 @@ public class SuperPowerDaoJdbcImplTest {
         assertEquals(expResult, result);
     }
     
+//    Test of addHeroOrg method, of class HeroDaoJdbcImpl
+    
     /**
      * Test of updateSuperPower method, of class SuperPowerDaoJdbcImpl.
      */
