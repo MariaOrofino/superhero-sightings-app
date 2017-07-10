@@ -28,9 +28,9 @@ public class OrgDaoJdbcImpl implements OrgDao {
     private static final String SQL_SELECT_ALL_ORGS = "select * from Organization";
     private static final String SQL_SELECT_ORGS_BY_HER0_ID =
             "select Organization.* from Organization" +
-            "inner join HeroOrganization on HeroOrganization.OrganizationID = Organization.OrganizationID" +
-            "inner join Hero on Hero.HeroID = HeroOrganization.HeroID" +
-            "where Hero.HeroID = ?";
+            " inner join HeroOrganization on HeroOrganization.OrganizationID = Organization.OrganizationID" +
+            " inner join Hero on Hero.HeroID = HeroOrganization.HeroID" +
+            " where Hero.HeroID = ?";
     private static final String SQL_UPDATE_ORG_BY_ID =
             "update Organization set OrgName = ?, Description = ?, StreetAddress = ?, City = ?, State = ?, Zipcode = ? "
             + "where OrganizationID = ?";

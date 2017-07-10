@@ -128,8 +128,7 @@ public class LocationDaoJdbcImplTest {
         Location location3 = new Location();
         location3.setLocationName("Mount Everest");
         locationDao.addLocation(location3);
-        int locId3 = location3.getLocationID();
-        
+        int locId3 = location3.getLocationID();        
         Sighting sighting1 = new Sighting();
         sighting1.setDate(LocalDate.parse("2017-06-11"));
         sighting1.setHero(hero1);
