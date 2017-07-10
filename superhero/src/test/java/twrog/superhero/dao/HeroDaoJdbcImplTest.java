@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import twrog.superhero.dto.Hero;
 import twrog.superhero.dto.Location;
+import twrog.superhero.dto.Organization;
 import twrog.superhero.dto.Sighting;
 
 /**
@@ -24,6 +25,7 @@ public class HeroDaoJdbcImplTest {
     HeroDao heroDao;
     SightingDao sightingDao;
     LocationDao locationDao;
+    OrgDao orgDao;
     
     public HeroDaoJdbcImplTest() {
     }
@@ -34,6 +36,7 @@ public class HeroDaoJdbcImplTest {
         sightingDao = ctx.getBean("sightingDao", SightingDao.class);
         locationDao = ctx.getBean("locationDao", LocationDao.class);
         heroDao = ctx.getBean("heroDao", HeroDao.class);
+        orgDao = ctx.getBean("orgDao", OrgDao.class);
         List<Sighting> sightings = sightingDao.getAllSightings();
         for (Sighting sighting : sightings) {
             sightingDao.deleteSightingByID(sighting.getSightingID());
@@ -45,6 +48,10 @@ public class HeroDaoJdbcImplTest {
         List<Location> locations = locationDao.getAllLocations();
         for (Location location : locations) {
             locationDao.deleteLocationByID(location.getLocationID());
+        }
+        List<Organization> orgs = orgDao.getAllOrgs();
+        for (Organization org : orgs) {
+            orgDao.deleteOrg(org.getOrganizationID());
         }
     }
     
@@ -61,6 +68,11 @@ public class HeroDaoJdbcImplTest {
         Hero result = heroDao.getHeroByID(hero.getHeroID());
         assertEquals(hero, result);
     }
+    
+//    /**
+//     * Test of addHeroOrg method, of class HeroDaoJdbcImpl.
+//     */
+//    public void testAddHeroOrg
     
     /**
      * Test of getAllHeros method, of class HeroDaoJdbcImpl.
@@ -84,6 +96,7 @@ public class HeroDaoJdbcImplTest {
      */
     @Test
     public void testGetHerosByLocationID() {
+        System.out.println("getHerosByLocationID");
         Hero hero1 = new Hero();
         hero1.setHeroName("Wonder Woman");
         heroDao.addHero(hero1);
@@ -126,11 +139,38 @@ public class HeroDaoJdbcImplTest {
     }
     
     /**
-     * Test of getHerosByOrganizationID method, of class HeroDaoJdbcImpl.
+     * Test of getHerosByOrganizationID and addHeroOrg methods, of class HeroDaoJdbcImpl.
      */
     @Test
-    public void testGetHerosByOrganizationID() {
-        
+    public void testAddGetHerosByOrganization() {
+        System.out.println("getHerosByOrganizationID, addHeroOrg");
+        Hero hero1 = new Hero();
+        hero1.setHeroName("Wonder Woman");
+        heroDao.addHero(hero1);
+        int heroId1 = hero1.getHeroID();
+        Hero hero2 = new Hero();
+        hero2.setHeroName("Spider Man");
+        heroDao.addHero(hero2);
+        int heroId2 = hero2.getHeroID();
+        Hero hero3 = new Hero();
+        hero3.setHeroName("Storm");
+        heroDao.addHero(hero3);
+        int heroId3 = hero3.getHeroID();
+        Organization org1 = new Organization();
+        org1.setOrgName("Justice League");
+        orgDao.addOrg(org1);
+        int orgId1 = org1.getOrganizationID();
+        Organization org2 = new Organization();
+        org2.setOrgName("The Headhunters");
+        orgDao.addOrg(org2);
+        int orgId2 = org2.getOrganizationID();
+        heroDao.addHeroOrg(heroId1, orgId1);
+        heroDao.addHeroOrg(heroId2, orgId2);
+        heroDao.addHeroOrg(heroId3, orgId2);
+        List<Hero> result = heroDao.getHerosByOrganizationID(orgId2);
+        assertTrue(result.size() == 2);
+        assertTrue(result.stream().anyMatch(h -> h.getHeroID() == heroId2));
+        assertTrue(result.stream().anyMatch(h -> h.getHeroID() == heroId3));
     }
     
     /**

@@ -6,12 +6,9 @@
 package twrog.superhero.dao;
 
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import twrog.superhero.dto.Organization;
