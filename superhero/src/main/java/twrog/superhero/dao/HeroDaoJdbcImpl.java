@@ -25,15 +25,14 @@ public class HeroDaoJdbcImpl implements HeroDao {
     private static final String SQL_SELECT_ALL_HEROS = "select * from Hero";
     private static final String SQL_SELECT_HEROS_BY_LOCATION_ID =
             "select Hero.* from Hero" +
-            "inner join HeroSighting on Hero.HeroID = HeroSighting.HeroID" +
-            "inner join Sighting on Sighting.SightingID = HeroSighting.SightingID" +
-            "inner join Location on Location.LocationID = Sighting.LocationID" +
-            "where Location.LocationID = ?";
+            " inner join Sighting on Hero.HeroID = Sighting.HeroID" +
+            " inner join Location on Location.LocationID = Sighting.LocationID" +
+            " where Location.LocationID = ?";
     private static final String SQL_SELECT_HEROS_BY_ORGANIZATION_ID =
             "select Hero.* from Hero" +
-            "inner join HeroOrganization on HeroOrganization.HeroID = Hero.HeroID" +
-            "inner join Organization on Organization.OrganizationID = HeroOrganization.OrganizationID" +
-            "where Organization.OrganizationID = ?";
+            " inner join HeroOrganization on HeroOrganization.HeroID = Hero.HeroID" +
+            " inner join Organization on Organization.OrganizationID = HeroOrganization.OrganizationID" +
+            " where Organization.OrganizationID = ?";
     private static final String SQL_UPDATE_HERO_BY_ID = "update Hero set HeroName = ?, Description = ? where HeroID = ?";
     private static final String SQL_DELETE_HERO_BY_ID = "delete from Hero where HeroID = ?";
     

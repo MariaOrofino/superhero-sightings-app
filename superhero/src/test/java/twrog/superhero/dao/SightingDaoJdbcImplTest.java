@@ -140,11 +140,46 @@ public class SightingDaoJdbcImplTest {
         assertTrue(result.size() == 2);
     }
     
-        /**
+    /**
      * Test of getSightingsByLocationID method, of class SightingDaoJdbcImpl.
      */
+    @Test
     public void testGetSightingsByLocationID() {
-        
+        System.out.println("getSightingsByLocationID");
+        Hero hero1 = new Hero();
+        hero1.setHeroName("Wonder Woman");
+        heroDao.addHero(hero1);
+        Hero hero2 = new Hero();
+        hero2.setHeroName("Spider Man");
+        heroDao.addHero(hero2);
+        Location location1 = new Location();
+        location1.setLocationName("The White House");
+        locationDao.addLocation(location1);
+        Location location2 = new Location();
+        location2.setLocationName("Destruction Lab");
+        locationDao.addLocation(location2);
+        Sighting sighting1 = new Sighting();
+        sighting1.setDate(LocalDate.parse("2017-06-11"));
+        sighting1.setHero(hero1);
+        sighting1.setLocation(location1);
+        sightingDao.addSighting(sighting1);
+        int id1 = sighting1.getSightingID();
+        Sighting sighting2 = new Sighting();
+        sighting2.setDate(LocalDate.parse("2017-02-03"));
+        sighting2.setHero(hero2);
+        sighting2.setLocation(location2);
+        sightingDao.addSighting(sighting2);
+        int id2 = sighting2.getSightingID();
+        Sighting sighting3 = new Sighting();
+        sighting3.setDate(LocalDate.parse("2017-03-06"));
+        sighting3.setHero(hero1);
+        sighting3.setLocation(location2);
+        sightingDao.addSighting(sighting3);
+        int id3 = sighting3.getSightingID();
+        List<Sighting> result = sightingDao.getSightingsByLocationID(location2.getLocationID());
+        assertTrue(result.stream().anyMatch(s -> s.getSightingID() == id2));
+        assertTrue(result.stream().anyMatch(s -> s.getSightingID() == id3));
+        assertTrue(result.size() == 2);
     }
     
     /**

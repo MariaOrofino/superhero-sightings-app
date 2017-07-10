@@ -5,6 +5,7 @@
 */
 package twrog.superhero.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -12,13 +13,17 @@ import org.junit.Before;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import twrog.superhero.dto.Hero;
+import twrog.superhero.dto.Location;
+import twrog.superhero.dto.Sighting;
 
 /**
  *
  * @author 7ravis
  */
 public class HeroDaoJdbcImplTest {
-    HeroDao instance;
+    HeroDao heroDao;
+    SightingDao sightingDao;
+    LocationDao locationDao;
     
     public HeroDaoJdbcImplTest() {
     }
@@ -26,10 +31,20 @@ public class HeroDaoJdbcImplTest {
     @Before
     public void setUp() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
-        instance = ctx.getBean("heroDao", HeroDao.class);
-        List<Hero> heros = instance.getAllHeros();
+        sightingDao = ctx.getBean("sightingDao", SightingDao.class);
+        locationDao = ctx.getBean("locationDao", LocationDao.class);
+        heroDao = ctx.getBean("heroDao", HeroDao.class);
+        List<Sighting> sightings = sightingDao.getAllSightings();
+        for (Sighting sighting : sightings) {
+            sightingDao.deleteSightingByID(sighting.getSightingID());
+        }
+        List<Hero> heros = heroDao.getAllHeros();
         for (Hero hero : heros) {
-            instance.deleteHeroByID(hero.getHeroID());
+            heroDao.deleteHeroByID(hero.getHeroID());
+        }
+        List<Location> locations = locationDao.getAllLocations();
+        for (Location location : locations) {
+            locationDao.deleteLocationByID(location.getLocationID());
         }
     }
     
@@ -42,8 +57,8 @@ public class HeroDaoJdbcImplTest {
         Hero hero = new Hero();
         hero.setHeroName("Wonder Woman");
         hero.setDescription("classic superhero");
-        instance.addHero(hero);
-        Hero result = instance.getHeroByID(hero.getHeroID());
+        heroDao.addHero(hero);
+        Hero result = heroDao.getHeroByID(hero.getHeroID());
         assertEquals(hero, result);
     }
     
@@ -55,13 +70,67 @@ public class HeroDaoJdbcImplTest {
         System.out.println("getAllHeros");
         Hero hero1 = new Hero();
         hero1.setHeroName("Wonder Woman");
-        instance.addHero(hero1);
+        heroDao.addHero(hero1);
         Hero hero2 = new Hero();
         hero2.setHeroName("Spider Man");
-        instance.addHero(hero2);
+        heroDao.addHero(hero2);
         int expResult = 2;
-        int result = instance.getAllHeros().size();
+        int result = heroDao.getAllHeros().size();
         assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of getHerosByLocationID method, of class HeroDaoJdbcImpl.
+     */
+    @Test
+    public void testGetHerosByLocationID() {
+        Hero hero1 = new Hero();
+        hero1.setHeroName("Wonder Woman");
+        heroDao.addHero(hero1);
+        int heroId1 = hero1.getHeroID();
+        Hero hero2 = new Hero();
+        hero2.setHeroName("Spider Man");
+        heroDao.addHero(hero2);
+        int heroId2 = hero2.getHeroID();
+        Hero hero3 = new Hero();
+        hero3.setHeroName("Storm");
+        heroDao.addHero(hero3);
+        int heroId3 = hero3.getHeroID();
+        Location location1 = new Location();
+        location1.setLocationName("The White House");
+        locationDao.addLocation(location1);
+        Location location2 = new Location();
+        location2.setLocationName("Destruction Lab");
+        locationDao.addLocation(location2);
+        Sighting sighting1 = new Sighting();
+        sighting1.setDate(LocalDate.parse("2017-06-11"));
+        sighting1.setHero(hero1);
+        sighting1.setLocation(location1);
+        sightingDao.addSighting(sighting1);
+        Sighting sighting2 = new Sighting();
+        sighting2.setDate(LocalDate.parse("2017-02-03"));
+        sighting2.setHero(hero2);
+        sighting2.setLocation(location2);
+        sightingDao.addSighting(sighting2);
+        Sighting sighting3 = new Sighting();
+        sighting3.setDate(LocalDate.parse("2017-03-06"));
+        sighting3.setHero(hero3);
+        sighting3.setLocation(location2);
+        sightingDao.addSighting(sighting3);
+        List<Hero> result = heroDao.getHerosByLocationID(location2.getLocationID());
+        assertTrue(result.stream().anyMatch(h -> h.getHeroID() == heroId2));
+        assertTrue(result.stream().anyMatch(h -> h.getHeroID() == heroId3));
+//        assertTrue(result.stream().anyMatch(s -> s.getSightingID() == id2));
+//        assertTrue(result.stream().anyMatch(s -> s.getSightingID() == id3));
+        assertTrue(result.size() == 2);
+    }
+    
+    /**
+     * Test of getHerosByOrganizationID method, of class HeroDaoJdbcImpl.
+     */
+    @Test
+    public void testGetHerosByOrganizationID() {
+        
     }
     
     /**
@@ -73,10 +142,10 @@ public class HeroDaoJdbcImplTest {
         Hero hero = new Hero();
         hero.setHeroName("Wonder Woman");
         hero.setDescription("classic superhero");
-        instance.addHero(hero);
+        heroDao.addHero(hero);
         hero.setDescription("has ability to fly");
-        instance.updateHero(hero);
-        Hero result = instance.getHeroByID(hero.getHeroID());
+        heroDao.updateHero(hero);
+        Hero result = heroDao.getHeroByID(hero.getHeroID());
         assertEquals(hero, result);
     }
     
@@ -88,12 +157,12 @@ public class HeroDaoJdbcImplTest {
         System.out.println("deleteHeroByID");
         Hero hero = new Hero();
         hero.setHeroName("Wonder Woman");
-        instance.addHero(hero);
+        heroDao.addHero(hero);
         int heroID = hero.getHeroID();
-        Hero heroFromDao = instance.getHeroByID(heroID);
+        Hero heroFromDao = heroDao.getHeroByID(heroID);
         assertEquals(hero,heroFromDao);
-        instance.deleteHeroByID(heroID);
-        assertNull(instance.getHeroByID(heroID));
+        heroDao.deleteHeroByID(heroID);
+        assertNull(heroDao.getHeroByID(heroID));
     }
     
 }
