@@ -63,6 +63,21 @@ public class HeroController {
         heroDao.addHero(hero);
         return "redirect:hero";
     }
+    @RequestMapping(value="/editHero/{heroID}", method=RequestMethod.GET)
+    public String editHero(@PathVariable("heroID") int id, Model model) {
+        Hero hero = heroDao.getHeroByID(id);
+        model.addAttribute("hero", hero);
+        return "/editHero";
+    }
+    @RequestMapping(value="updateHero", method=RequestMethod.POST)
+    public String updateHero(String heroID, String heroName, String heroDescription) {
+        Hero hero = new Hero();
+        hero.setHeroID(Integer.parseInt(heroID));
+        hero.setHeroName(heroName);
+        hero.setDescription(heroDescription);
+        heroDao.updateHero(hero);
+        return "redirect:hero";
+    }
     @RequestMapping(value="/deleteHero/{heroID}", method=RequestMethod.GET)
     public String deleteHero(@PathVariable("heroID") int id) {
         heroDao.deleteHeroByID(id);
