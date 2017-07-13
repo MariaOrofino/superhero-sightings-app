@@ -121,14 +121,11 @@ public class HeroController {
         return "reportSighting";
     }
     @RequestMapping(value="addSighting", method=RequestMethod.POST)
-    public String addSighting(int heroID, int locationID, String sightingDate) {
-        
-        
+    public String addSighting(int heroID, int locationID, String sightingDate) {                
         Hero hero = new Hero();
         hero.setHeroID(heroID);
         Location location = new Location();
         location.setLocationID(locationID);
-        //
         Sighting sighting = new Sighting();
         LocalDate date = LocalDate.parse(sightingDate);
         sighting.setDate(date);
@@ -136,6 +133,16 @@ public class HeroController {
         sighting.setLocation(location);
         sightingDao.addSighting(sighting);
         return "redirect:sighting";
+    }
+    @RequestMapping(value="editSighting/{sightingID}", method=RequestMethod.GET)
+    public String editSighting(@PathVariable("sightingID") int sightingID, Model model) {
+        Sighting sighting = sightingDao.getSightingByID(sightingID);
+        List<Hero> heros = heroDao.getAllHeros();
+        List<Location> locations = locationDao.getAllLocations();
+        model.addAttribute("heros", heros);
+        model.addAttribute("locations", locations);
+        model.addAttribute("sightingToEdit", sighting);
+        return "editSighting";
     }
     @RequestMapping(value="deleteSighting/{sightingID}", method=RequestMethod.GET)
     public String deleteSighting(@PathVariable("sightingID") int id) {

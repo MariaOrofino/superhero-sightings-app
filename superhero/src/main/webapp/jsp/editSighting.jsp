@@ -5,9 +5,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Report Sighting</title>
-        <!-- Bootstrap core CSS -->
-        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">        
+        <title>Edit Sighting</title>
+        <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">  
     </head>
     <body>
         <nav class="navbar navbar-inverse">
@@ -25,8 +24,8 @@
                 <a href="${pageContext.request.contextPath}/reportSighting" class="btn btn-danger navbar-btn">Report Sighting</a>
             </div>
         </nav>
-        <div class="container">    
-            <h2 class="text-center">Report Sighting</h2>
+        <div class="container">            
+            <h2 class="text-center">Edit Sighting</h2>
             <form action="${pageContext.request.contextPath}/addSighting" method="post">                        
                 <div class="form-group">
                     <label for="sightingDate">Date:</label>
@@ -36,7 +35,14 @@
                     <label for="heroID">Hero:</label>
                     <select class="form-control" id="heroID" name="heroID">
                         <c:forEach var="hero" items="${heros}">
-                            <option value="${hero.heroID}">${hero.heroName}</option>
+                            <c:choose>
+                                <c:when test="${hero.heroID == sightingToEdit.hero.heroID}">
+                                    <option value="${sightingToEdit.hero.heroID}" selected>${sightingToEdit.hero.heroName}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${hero.heroID}">${hero.heroName}</option>
+                                </c:otherwise>
+                            </c:choose>                            
                         </c:forEach>
                     </select>
                 </div>
@@ -44,17 +50,22 @@
                     <label for="locationID">Location:</label>
                     <select class="form-control" id="locationID" name="locationID">
                         <c:forEach var="location" items="${locations}">
-                            <option value="${location.locationID}">${location.locationName}<c:if test="${location.streetAddress != null}">, ${location.streetAddress}</c:if></option>
+                            <c:choose>
+                                <c:when test="${location.locationID == sightingToEdit.location.locationID}">
+                                    <option value="${sightingToEdit.location.locationID}" selected>${sightingToEdit.location.locationName}<c:if test="${sightingToEdit.location.streetAddress != null}">, ${sightingToEdit.location.streetAddress}</c:if></option>                                    
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${location.locationID}">${location.locationName}<c:if test="${location.streetAddress != null}">, ${location.streetAddress}</c:if></option>
+                                </c:otherwise>
+                            </c:choose>                            
                         </c:forEach>
                     </select>
                 </div>                      
                 <button type="submit" class="btn btn-primary">Submit</button> 
-            </form>
-        </div>
-        <!-- Placed at the end of the document so the pages load faster -->
+            </form>            
+        </div>        
+        
         <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        
     </body>
 </html>
-
