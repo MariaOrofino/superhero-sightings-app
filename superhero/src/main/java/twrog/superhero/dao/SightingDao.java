@@ -23,6 +23,8 @@ public interface SightingDao {
     Sighting getSightingByID(int sightingID);
     
     List<Sighting> getAllSightings();
+    
+    public List<Sighting> getAllSightingsToLimit();
 
     List<Sighting> getSightingsByDate(LocalDate date);
 

@@ -1,7 +1,6 @@
 package twrog.superhero.controller;
 
 import java.util.List;
-import java.util.Map;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +12,7 @@ import twrog.superhero.dao.OrgDao;
 import twrog.superhero.dao.SightingDao;
 import twrog.superhero.dao.SuperPowerDao;
 import twrog.superhero.dto.Hero;
+import twrog.superhero.dto.Sighting;
 
 /**
  *
@@ -39,8 +39,9 @@ public class HeroController {
     }
     
     @RequestMapping(value="/", method=RequestMethod.GET)
-    public String home(Map<String, Object> model) {
-        model.put("message", "Hello from the controller" );
+    public String home(Model model) {
+        List<Sighting> sightings = sightingDao.getAllSightingsToLimit();
+        model.addAttribute("sightings", sightings);
         return "index";
     }
     
