@@ -34,7 +34,7 @@ public class OrgDaoJdbcImplTest {
         heroDao = ctx.getBean("heroDao", HeroDao.class);
         List<Organization> orgs = orgDao.getAllOrgs();
         for (Organization org : orgs) {
-            orgDao.deleteOrg(org.getOrganizationID());
+            orgDao.deleteOrg(org.getOrgID());
         }
         List<Hero> heros = heroDao.getAllHeros();
         for (Hero hero : heros) {
@@ -46,7 +46,7 @@ public class OrgDaoJdbcImplTest {
     public void tearDown() {
         List<Organization> orgs = orgDao.getAllOrgs();
         for (Organization org : orgs) {
-            orgDao.deleteOrg(org.getOrganizationID());
+            orgDao.deleteOrg(org.getOrgID());
         }
         List<Hero> heros = heroDao.getAllHeros();
         for (Hero hero : heros) {
@@ -68,7 +68,7 @@ public class OrgDaoJdbcImplTest {
         org.setState("MN");
         org.setZipcode("55377");
         orgDao.addOrg(org);
-        int orgID = org.getOrganizationID();
+        int orgID = org.getOrgID();
         Organization result = orgDao.getOrgByID(orgID);
         assertEquals(org, result);
     }
@@ -108,22 +108,22 @@ public class OrgDaoJdbcImplTest {
         Organization org1 = new Organization();
         org1.setOrgName("Justice League");
         orgDao.addOrg(org1);
-        int orgId1 = org1.getOrganizationID();
+        int orgId1 = org1.getOrgID();
         Organization org2 = new Organization();
         org2.setOrgName("The Headhunters");
         orgDao.addOrg(org2);
-        int orgId2 = org2.getOrganizationID();
+        int orgId2 = org2.getOrgID();
         Organization org3 = new Organization();
         org3.setOrgName("The X-Men");
         orgDao.addOrg(org3);
-        int orgId3 = org3.getOrganizationID();
+        int orgId3 = org3.getOrgID();
         heroDao.addHeroOrg(heroId1, orgId1);
         heroDao.addHeroOrg(heroId2, orgId2);
         heroDao.addHeroOrg(heroId2, orgId3);
         List<Organization> orgs = orgDao.getOrgsByHeroID(heroId2);
         assertTrue(orgs.size() == 2);
-        assertTrue(orgs.stream().anyMatch(o -> o.getOrganizationID() == orgId2));
-        assertTrue(orgs.stream().anyMatch(o -> o.getOrganizationID() == orgId3));
+        assertTrue(orgs.stream().anyMatch(o -> o.getOrgID() == orgId2));
+        assertTrue(orgs.stream().anyMatch(o -> o.getOrgID() == orgId3));
     }
     
     /**
@@ -140,7 +140,7 @@ public class OrgDaoJdbcImplTest {
         org.setState("MN");
         org.setZipcode("55377");
         orgDao.addOrg(org);
-        int orgID = org.getOrganizationID();
+        int orgID = org.getOrgID();
         org.setOrgName("The Justice League");
         org.setDescription("heros trying to make the world a better place");
         org.setStreetAddress("125 Spur Court");
@@ -161,7 +161,7 @@ public class OrgDaoJdbcImplTest {
         Organization org = new Organization();
         org.setOrgName("Justice League");
         orgDao.addOrg(org);
-        int orgID = org.getOrganizationID();
+        int orgID = org.getOrgID();
         Organization result = orgDao.getOrgByID(orgID);
         assertEquals(org, result);
         orgDao.deleteOrg(orgID);

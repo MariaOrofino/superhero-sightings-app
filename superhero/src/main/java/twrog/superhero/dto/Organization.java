@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author Travis Rogers
  */
 public class Organization {
-    private int organizationID;
+    private int orgID;
     private String orgName;
     private String description;
     private String streetAddress;
@@ -21,12 +21,12 @@ public class Organization {
     private String state;
     private String zipcode;
 
-    public int getOrganizationID() {
-        return organizationID;
+    public int getOrgID() {
+        return orgID;
     }
 
-    public void setOrganizationID(int organizationID) {
-        this.organizationID = organizationID;
+    public void setOrgID(int orgID) {
+        this.orgID = orgID;
     }
 
     public String getOrgName() {
@@ -80,7 +80,7 @@ public class Organization {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + this.organizationID;
+        hash = 17 * hash + this.orgID;
         hash = 17 * hash + Objects.hashCode(this.orgName);
         hash = 17 * hash + Objects.hashCode(this.description);
         hash = 17 * hash + Objects.hashCode(this.streetAddress);
@@ -102,7 +102,7 @@ public class Organization {
             return false;
         }
         final Organization other = (Organization) obj;
-        if (this.organizationID != other.organizationID) {
+        if (this.orgID != other.orgID) {
             return false;
         }
         if (!Objects.equals(this.orgName, other.orgName)) {

@@ -53,7 +53,7 @@ public class OrgDaoJdbcImpl implements OrgDao {
                 org.getZipcode()
         );
         int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
-        org.setOrganizationID(id);
+        org.setOrgID(id);
     }
     @Override
     public Organization getOrgByID(int orgID) {
@@ -80,7 +80,7 @@ public class OrgDaoJdbcImpl implements OrgDao {
                 org.getCity(),
                 org.getState(),
                 org.getZipcode(),
-                org.getOrganizationID()
+                org.getOrgID()
         );
     }
     @Override
@@ -94,7 +94,7 @@ public class OrgDaoJdbcImpl implements OrgDao {
         @Override
         public Organization mapRow(ResultSet rs, int i) throws SQLException {
             Organization org = new Organization();
-            org.setOrganizationID(rs.getInt("OrganizationID"));
+            org.setOrgID(rs.getInt("OrganizationID"));
             org.setOrgName(rs.getString("OrgName"));
             org.setDescription(rs.getString("Description"));
             org.setStreetAddress(rs.getString("StreetAddress"));

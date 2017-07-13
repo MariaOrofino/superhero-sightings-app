@@ -12,6 +12,7 @@ import twrog.superhero.dao.OrgDao;
 import twrog.superhero.dao.SightingDao;
 import twrog.superhero.dao.SuperPowerDao;
 import twrog.superhero.dto.Hero;
+import twrog.superhero.dto.Organization;
 import twrog.superhero.dto.Sighting;
 
 /**
@@ -26,7 +27,7 @@ public class HeroController {
     OrgDao orgDao;
     SightingDao sightingDao;
     SuperPowerDao superPowerDao;
-
+    
     @Inject
     public HeroController(HeroDao heroDao, LocationDao locationDao, OrgDao orgDao, SightingDao sightingDao, SuperPowerDao superPowerDao) {
         this.heroDao = heroDao;
@@ -59,5 +60,24 @@ public class HeroController {
         hero.setDescription(heroDescription);
         heroDao.addHero(hero);
         return "redirect:hero";
+    }
+    @RequestMapping(value="organization", method=RequestMethod.GET)
+    public String displayOrgs(Model model) {
+        List<Organization> orgs = orgDao.getAllOrgs();
+        model.addAttribute("orgs", orgs);
+        return "organization";
+    }
+    
+    @RequestMapping(value="addOrg", method=RequestMethod.POST)
+    public String addOrg(String orgName, String orgDescription, String orgStreetAddress, String orgCity, String orgState, String orgZipcode) {
+        Organization org = new Organization();
+        org.setOrgName(orgName);
+        org.setDescription(orgDescription);
+        org.setStreetAddress(orgStreetAddress);
+        org.setCity(orgCity);
+        org.setState(orgState);
+        org.setZipcode(orgZipcode);
+        orgDao.addOrg(org);
+        return "redirect:organization";
     }
 }

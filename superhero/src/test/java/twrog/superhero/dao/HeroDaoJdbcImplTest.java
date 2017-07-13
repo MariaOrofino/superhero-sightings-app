@@ -52,7 +52,7 @@ public class HeroDaoJdbcImplTest {
         }
         List<Organization> orgs = orgDao.getAllOrgs();
         for (Organization org : orgs) {
-            orgDao.deleteOrg(org.getOrganizationID());
+            orgDao.deleteOrg(org.getOrgID());
         }
     }
     
@@ -72,7 +72,7 @@ public class HeroDaoJdbcImplTest {
         }
         List<Organization> orgs = orgDao.getAllOrgs();
         for (Organization org : orgs) {
-            orgDao.deleteOrg(org.getOrganizationID());
+            orgDao.deleteOrg(org.getOrgID());
         }
     }
     
@@ -173,11 +173,11 @@ public class HeroDaoJdbcImplTest {
         Organization org1 = new Organization();
         org1.setOrgName("Justice League");
         orgDao.addOrg(org1);
-        int orgId1 = org1.getOrganizationID();
+        int orgId1 = org1.getOrgID();
         Organization org2 = new Organization();
         org2.setOrgName("The Headhunters");
         orgDao.addOrg(org2);
-        int orgId2 = org2.getOrganizationID();
+        int orgId2 = org2.getOrgID();
         heroDao.addHeroOrg(heroId1, orgId1);
         heroDao.addHeroOrg(heroId2, orgId2);
         heroDao.addHeroOrg(heroId3, orgId2);
