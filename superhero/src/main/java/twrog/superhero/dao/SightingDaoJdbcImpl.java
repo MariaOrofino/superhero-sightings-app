@@ -111,8 +111,8 @@ public class SightingDaoJdbcImpl implements SightingDao {
             location.setCity(rs.getString("City"));
             location.setState(rs.getString("State"));
             location.setZipcode(rs.getString("Zipcode"));
-            location.setLatitude(rs.getDouble("Latitude"));
-            location.setLongitude(rs.getDouble("Longitude"));
+            location.setLatitude(rs.getBigDecimal("Latitude"));
+            location.setLongitude(rs.getBigDecimal("Longitude"));
             Sighting sighting = new Sighting();
             sighting.setSightingID(rs.getInt("SightingID"));
             sighting.setHero(hero);

@@ -5,6 +5,7 @@
 */
 package twrog.superhero.dao;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.After;
@@ -78,8 +79,8 @@ public class LocationDaoJdbcImplTest {
         location.setCity("Williamsburg");
         location.setState("VA");
         location.setZipcode("55410");
-        location.setLatitude(45.13);
-        location.setLongitude(81.99);
+        location.setLatitude(new BigDecimal("45.130000"));
+        location.setLongitude(new BigDecimal("81.990000"));
         locationDao.addLocation(location);
         int locationID = location.getLocationID();
         Location result = locationDao.getLocationByID(locationID);
@@ -163,8 +164,8 @@ public class LocationDaoJdbcImplTest {
         location.setCity("Williamsburg");
         location.setState("VA");
         location.setZipcode("55410");
-        location.setLatitude(45.13);
-        location.setLongitude(81.99);
+        location.setLatitude(new BigDecimal("45.130000"));
+        location.setLongitude(new BigDecimal("81.990000"));
         locationDao.addLocation(location);
         int locationID = location.getLocationID();
         location.setLocationName("Destruction Laboratory");
@@ -173,8 +174,8 @@ public class LocationDaoJdbcImplTest {
         location.setCity("Minneapolis");
         location.setState("MN");
         location.setZipcode("55410");
-        location.setLatitude(42.13);
-        location.setLongitude(70.99);
+        location.setLatitude(new BigDecimal("42.130000"));
+        location.setLongitude(new BigDecimal("70.990000"));
         locationDao.updateLocation(location);
         Location result = locationDao.getLocationByID(locationID);
         assertEquals(location, result);

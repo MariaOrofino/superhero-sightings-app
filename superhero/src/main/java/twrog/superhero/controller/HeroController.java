@@ -1,5 +1,6 @@
 package twrog.superhero.controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import javax.inject.Inject;
@@ -155,12 +156,12 @@ public class HeroController {
         }
         if (!(locationLatitude.trim().length() == 0)) {
             try {
-            location.setLatitude(Double.parseDouble(locationLatitude));
+            location.setLatitude(new BigDecimal(locationLatitude));
             } catch (NumberFormatException e) {}
         }
         if (!(locationLongitude.trim().length() == 0)) {
             try {
-            location.setLongitude(Double.parseDouble(locationLongitude));
+            location.setLongitude(new BigDecimal(locationLongitude));
             } catch (NumberFormatException e) {}
         }                                        
         locationDao.addLocation(location);

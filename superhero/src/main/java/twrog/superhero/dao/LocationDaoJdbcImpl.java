@@ -106,8 +106,8 @@ public class LocationDaoJdbcImpl implements LocationDao {
             location.setCity(rs.getString("City"));
             location.setState(rs.getString("State"));
             location.setZipcode(rs.getString("Zipcode"));
-            location.setLatitude(rs.getDouble("Latitude"));
-            location.setLongitude(rs.getDouble("Longitude"));
+            location.setLatitude(rs.getBigDecimal("Latitude"));
+            location.setLongitude(rs.getBigDecimal("Longitude"));
             return location;
         }
     }
