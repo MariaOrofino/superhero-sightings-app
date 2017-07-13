@@ -26,14 +26,14 @@
         </nav>
         <div class="container">            
             <h2 class="text-center">Edit Sighting</h2>
-            <form action="${pageContext.request.contextPath}/addSighting" method="post">                        
+            <form action="${pageContext.request.contextPath}/updateSighting" method="post">                        
                 <div class="form-group">
                     <label for="sightingDate">Date:</label>
-                    <input id="sightingDate" name="sightingDate" type="date" class="form-control"/>                            
+                    <input name="sightingDate" type="date" class="form-control" value="${sightingToEdit.date}"/>                            
                 </div>    
                 <div class="form-group">
                     <label for="heroID">Hero:</label>
-                    <select class="form-control" id="heroID" name="heroID">
+                    <select class="form-control" name="heroID">
                         <c:forEach var="hero" items="${heros}">
                             <c:choose>
                                 <c:when test="${hero.heroID == sightingToEdit.hero.heroID}">
@@ -57,10 +57,11 @@
                                 <c:otherwise>
                                     <option value="${location.locationID}">${location.locationName}<c:if test="${location.streetAddress != null}">, ${location.streetAddress}</c:if></option>
                                 </c:otherwise>
-                            </c:choose>                            
+                            </c:choose>                  
                         </c:forEach>
                     </select>
-                </div>                      
+                </div>          
+                <input name="sightingID" type="hidden" value="${sightingToEdit.sightingID}"/>
                 <button type="submit" class="btn btn-primary">Submit</button> 
             </form>            
         </div>        

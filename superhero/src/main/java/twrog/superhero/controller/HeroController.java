@@ -144,6 +144,20 @@ public class HeroController {
         model.addAttribute("sightingToEdit", sighting);
         return "editSighting";
     }
+    @RequestMapping(value="updateSighting", method=RequestMethod.POST)
+    public String updateSighting(String sightingDate, int heroID, int locationID, int sightingID) {
+        Hero hero = new Hero();
+        hero.setHeroID(heroID);
+        Location location = new Location();
+        location.setLocationID(locationID);
+        Sighting sighting = new Sighting();
+        sighting.setSightingID(sightingID);
+        sighting.setDate(LocalDate.parse(sightingDate));
+        sighting.setHero(hero);
+        sighting.setLocation(location);
+        sightingDao.updateSighting(sighting);
+        return "redirect:/sighting";
+    }
     @RequestMapping(value="deleteSighting/{sightingID}", method=RequestMethod.GET)
     public String deleteSighting(@PathVariable("sightingID") int id) {
         sightingDao.deleteSightingByID(id);
