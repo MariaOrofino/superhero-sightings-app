@@ -50,8 +50,8 @@
                                     <td>${location.latitude}</td>
                                     <td>${location.longitude}</td>
                                     <td>
-                                        <a href="deleteOrg/${location.locationID}">Delete</a> | 
-                                        <a href="editOrg/${location.locationID}">Edit</a>
+                                        <a href="deleteLocation/${location.locationID}">Delete</a> | 
+                                        <a href="editLocation/${location.locationID}">Edit</a>
                                     </td>
                                 </tr>
                             </c:forEach>

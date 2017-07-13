@@ -42,8 +42,8 @@
                                     <td>${hero.heroName}</td>
                                     <td>${hero.description}</td>
                                     <td class="text-center">
-                                        <a href="deleteHero/${hero.heroID}">Delete</a> | 
-                                        <a href="editHero/${hero.heroID}">Edit</a>
+                                        <a href="${pageContext.request.contextPath}/deleteHero/${hero.heroID}">Delete</a> | 
+                                        <a href="${pageContext.request.contextPath}/editHero/${hero.heroID}">Edit</a>
                                     </td>
                                 </tr>
                             </c:forEach>

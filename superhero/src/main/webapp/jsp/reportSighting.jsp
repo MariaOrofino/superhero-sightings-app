@@ -33,16 +33,16 @@
                     <input id="sightingDate" name="sightingDate" type="date" class="form-control"/>                            
                 </div>    
                 <div class="form-group">
-                    <label for="heroSightingSelection">Hero:</label>
-                    <select class="form-control" id="heroSightingSelection">
+                    <label for="heroID">Hero:</label>
+                    <select class="form-control" id="heroID" name="heroID">
                         <c:forEach var="hero" items="${heros}">
                             <option value="${hero.heroID}">${hero.heroName}</option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="locationSightingSelection">Location:</label>
-                    <select class="form-control" id="locationSightingSelection">
+                    <label for="locationID">Location:</label>
+                    <select class="form-control" id="locationID" name="locationID">
                         <c:forEach var="location" items="${locations}">
                             <option value="${location.locationID}">${location.locationName}<c:if test="${location.streetAddress} != null">,${location.streetAddress}</c:if></option>
                         </c:forEach>
