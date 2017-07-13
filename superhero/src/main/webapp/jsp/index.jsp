@@ -5,26 +5,65 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Index Page</title>
+        <title>Home Page</title>
         <!-- Bootstrap core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">        
     </head>
     <body>
-        <div class="container">
-            <h1>Spring MVC Application from Archetype</h1>
-            <hr/>
-            <div class="navbar">
-                <ul class="nav nav-tabs">
-                	<li role="presentation" class="active"><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
-                	<li role="presentation"><a href="${pageContext.request.contextPath}/hello/sayhi">Hello Controller</a></li>
-                </ul>    
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/">Hero Sightings</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a class="nav-link" href="${pageContext.request.contextPath}/">Home</a></li>
+                    <li><a class="nav-link" href="${pageContext.request.contextPath}/sighting">Sightings</a></li>
+                    <li><a class="nav-link" href="${pageContext.request.contextPath}/hero">Heros</a></li>
+                    <li><a class="nav-link" href="${pageContext.request.contextPath}/organization">Organizations</a></li>
+                </ul>
+                <a href="${pageContext.request.contextPath}/createSighting" class="btn btn-danger navbar-btn">Report Sighting</a>
             </div>
-            <h2>Home Page</h2>
+        </nav>
+        <div class="container">            
+            <h2>What are Super Hero Sightings?</h2>
+            <p>Super heros (and sadly, super villains as well) are all around us. Your neighbor Phil. The grocery store cashier, Peggy. 
+                While Phil and Peggy may not be active in the heroic or villainous usage of their super powers, other heros are. 
+                This app gives enthusiasts a place report sightings of their favorite heros and nemeses. You can also manage hero organizations 
+                and sighting locations. Enjoy!
+            <h2>Ten Most Recent Sightings</h2>
+            <table class="table table-bordered table-hover table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Hero</th>
+                        <th>Location</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip Code</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                    </tr>                            
+                </thead>
+                <tbody>
+                    <c:forEach var="sighting" items="${sightings}">
+                        <tr>
+                            <td>${sighting.date}</td>
+                            <td>${sighting.hero.heroName}</td>
+                            <td>${sighting.location.locationName}</td>
+                            <td>${sighting.location.city}</td>
+                            <td>${sighting.location.state}</td>
+                            <td>${sighting.location.zipcode}</td>
+                            <td>${sighting.location.latitude}</td>
+                            <td>${sighting.location.longitude}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
         </div>
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-
+        
     </body>
 </html>
 
