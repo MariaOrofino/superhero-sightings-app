@@ -18,9 +18,10 @@
                     <li><a class="nav-link" href="${pageContext.request.contextPath}/">Home</a></li>
                     <li><a class="nav-link" href="${pageContext.request.contextPath}/sighting">Sightings</a></li>
                     <li class="active"><a class="nav-link" href="${pageContext.request.contextPath}/hero">Heros</a></li>
+                    <li><a class="nav-link" href="${pageContext.request.contextPath}/location">Locations</a></li>
                     <li><a class="nav-link" href="${pageContext.request.contextPath}/organization">Organizations</a></li>
                 </ul>
-                <a href="${pageContext.request.contextPath}/createSighting" class="btn btn-danger navbar-btn">Report Sighting</a>
+                <a href="${pageContext.request.contextPath}/reportSighting" class="btn btn-danger navbar-btn">Report Sighting</a>
             </div>
         </nav>
         <div class="container-fluid">

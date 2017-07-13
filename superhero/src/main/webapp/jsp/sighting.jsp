@@ -5,9 +5,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home Page</title>
-        <!-- Bootstrap core CSS -->
-        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">        
+        <title>Sightings</title>
+        <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">  
     </head>
     <body>
         <nav class="navbar navbar-inverse">
@@ -16,8 +15,8 @@
                     <a class="navbar-brand" href="${pageContext.request.contextPath}/">Hero Sightings</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a class="nav-link" href="${pageContext.request.contextPath}/">Home</a></li>
-                    <li><a class="nav-link" href="${pageContext.request.contextPath}/sighting">Sightings</a></li>
+                    <li><a class="nav-link" href="${pageContext.request.contextPath}/">Home</a></li>
+                    <li class="active"><a class="nav-link" href="${pageContext.request.contextPath}/sighting">Sightings</a></li>
                     <li><a class="nav-link" href="${pageContext.request.contextPath}/hero">Heros</a></li>
                     <li><a class="nav-link" href="${pageContext.request.contextPath}/location">Locations</a></li>
                     <li><a class="nav-link" href="${pageContext.request.contextPath}/organization">Organizations</a></li>
@@ -25,15 +24,8 @@
                 <a href="${pageContext.request.contextPath}/reportSighting" class="btn btn-danger navbar-btn">Report Sighting</a>
             </div>
         </nav>
-        <div class="container">    
-            <div class="jumbotron">
-                <h2>What are Super Hero Sightings?</h2>
-                <p>Super heros (and sadly, super villains as well) are all around us. Your neighbor Phil. The grocery store cashier, Peggy. 
-                    While Phil and Peggy may not be active in the heroic or villainous usage of their super powers, other heros are. 
-                    This app gives enthusiasts a place report sightings of their favorite heros and nemeses. You can also manage hero organizations 
-                    and sighting locations. Enjoy!</p>
-            </div>
-            <h2>10 Most Recent Sightings</h2>
+        <div class="container-fluid">
+            <h2 class="text-center">Sightings</h2>
             <table class="table table-bordered table-hover table-responsive table-striped">
                 <thead>
                     <tr>
@@ -45,6 +37,7 @@
                         <th>Zip Code</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
+                        <th></th>
                     </tr>                            
                 </thead>
                 <tbody>
@@ -58,15 +51,17 @@
                             <td>${sighting.location.zipcode}</td>
                             <td>${sighting.location.latitude}</td>
                             <td>${sighting.location.longitude}</td>
+                            <td>
+                                <a href="deleteSighting/${sighting.sightingID}">Delete</a> | 
+                                <a href="editSighting/${sighting.sightingID}">Edit</a>
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
-        </div>
-        <!-- Placed at the end of the document so the pages load faster -->
+        </div>        
+        
         <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        
     </body>
 </html>
-

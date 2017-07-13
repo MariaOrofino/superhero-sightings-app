@@ -1,5 +1,6 @@
 package twrog.superhero.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import twrog.superhero.dao.OrgDao;
 import twrog.superhero.dao.SightingDao;
 import twrog.superhero.dao.SuperPowerDao;
 import twrog.superhero.dto.Hero;
+import twrog.superhero.dto.Location;
 import twrog.superhero.dto.Organization;
 import twrog.superhero.dto.Sighting;
 
@@ -45,14 +47,12 @@ public class HeroController {
         model.addAttribute("sightings", sightings);
         return "index";
     }
-    
     @RequestMapping(value="hero", method=RequestMethod.GET)
     public String displayHeros(Model model) {
         List<Hero> heros = heroDao.getAllHeros();
         model.addAttribute("heros", heros);
         return "hero";
     }
-    
     @RequestMapping(value="addHero", method=RequestMethod.POST)
     public String addHero(String heroName, String heroDescription) {
         Hero hero = new Hero();
@@ -67,7 +67,6 @@ public class HeroController {
         model.addAttribute("orgs", orgs);
         return "organization";
     }
-    
     @RequestMapping(value="addOrg", method=RequestMethod.POST)
     public String addOrg(String orgName, String orgDescription, String orgStreetAddress, String orgCity, String orgState, String orgZipcode) {
         Organization org = new Organization();
@@ -79,5 +78,57 @@ public class HeroController {
         org.setZipcode(orgZipcode);
         orgDao.addOrg(org);
         return "redirect:organization";
+    }
+    @RequestMapping(value="sighting", method=RequestMethod.GET)
+    public String displaySightings(Model model) {
+        List<Sighting> sightings = sightingDao.getAllSightings();
+        model.addAttribute("sightings", sightings);
+        return "sighting";
+    }
+    @RequestMapping(value="reportSighting", method=RequestMethod.GET)
+    public String reportSighting(Model model) {
+        List<Hero> heros = heroDao.getAllHeros();
+        List<Location> locations = locationDao.getAllLocations();
+        model.addAttribute("heros", heros);
+        model.addAttribute("locations", locations);
+        return "reportSighting";
+    }
+    @RequestMapping(value="addSighting", method=RequestMethod.POST)
+    public String addSighting(String heroSightingSelection, String locationSightingSelection, String sightingDate) {
+        LocalDate date = LocalDate.parse(sightingDate);
+        int heroID = Integer.parseInt(heroSightingSelection);
+        int locationID = Integer.parseInt(locationSightingSelection);
+        //REMOVE THE FOLLOWING SECTION ONCE ADDSIGHTING DAO METHOD UPDATED TO USE IDS INSTEAD OF OBJECTS
+        Hero hero = new Hero();
+        hero.setHeroID(heroID);
+        Location location = new Location();
+        location.setLocationID(locationID);
+        //
+        Sighting sighting = new Sighting();
+        sighting.setDate(date);
+        sighting.setHero(hero);
+        sighting.setLocation(location);
+        sightingDao.addSighting(sighting);
+        return "redirect:sighting";
+    }
+    @RequestMapping(value="location", method=RequestMethod.GET)
+    public String displayLocations(Model model) {
+        List<Location> locations = locationDao.getAllLocations();
+        model.addAttribute("locations", locations);
+        return "location";
+    }
+    @RequestMapping(value="addLocation", method=RequestMethod.POST)
+    public String addLocation(String locationName, String locationDescription, String locationStreetAddress, String locationCity, String locationState, String locationZipcode, int locationLatitude, int locationLongitude) {
+        Location location = new Location();
+        location.setLocationName(locationName);
+        location.setDescription(locationDescription);
+        location.setStreetAddress(locationStreetAddress);
+        location.setCity(locationCity);
+        location.setState(locationState);
+        location.setZipcode(locationZipcode);
+        location.setLatitude(locationLatitude);
+        location.setLongitude(locationLongitude);
+        locationDao.addLocation(location);
+        return "redirect/location";
     }
 }
