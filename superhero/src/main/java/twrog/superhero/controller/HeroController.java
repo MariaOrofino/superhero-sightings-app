@@ -58,9 +58,7 @@ public class HeroController {
     }
     @RequestMapping(value="addHero", method=RequestMethod.POST)
     public String addHero(String heroName, String heroDescription) {
-        Hero hero = new Hero();
-        hero.setHeroName(heroName);
-        hero.setDescription(heroDescription);
+        Hero hero = new Hero(heroName, heroDescription);
         heroDao.addHero(hero);
         return "redirect:/hero";
     }
@@ -72,10 +70,8 @@ public class HeroController {
     }
     @RequestMapping(value="updateHero", method=RequestMethod.POST)
     public String updateHero(int heroID, String heroName, String heroDescription) {
-        Hero hero = new Hero();
+        Hero hero = new Hero(heroName, heroDescription);
         hero.setHeroID(heroID);
-        hero.setHeroName(heroName);
-        hero.setDescription(heroDescription);
         heroDao.updateHero(hero);
         return "redirect:/hero";
     }

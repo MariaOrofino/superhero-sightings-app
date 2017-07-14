@@ -16,6 +16,16 @@ public class Hero {
     private int heroID;
     private String heroName;
     private String description;
+    
+    public Hero() {}
+    public Hero(String heroName, String description) {
+        if (heroName != null && heroName.trim().length() > 0) {
+            this.heroName = heroName;           
+        }
+        if (description != null && description.trim().length() > 0) {
+            this.description = description;
+        }
+    }
 
     public int getHeroID() {
         return heroID;

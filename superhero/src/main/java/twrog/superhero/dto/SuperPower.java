@@ -15,6 +15,13 @@ import java.util.Objects;
 public class SuperPower {
     private int superPowerID;
     private String description;
+    
+    public SuperPower() {}
+    public SuperPower(String description) {
+        if (description != null && description.trim().length() > 0) {
+            this.description = description;
+        }
+    }
 
     public int getSuperPowerID() {
         return superPowerID;
