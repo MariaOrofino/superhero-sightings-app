@@ -92,13 +92,7 @@ public class HeroController {
     }
     @RequestMapping(value="addOrg", method=RequestMethod.POST)
     public String addOrg(String orgName, String orgDescription, String orgStreetAddress, String orgCity, String orgState, String orgZipcode) {
-        Organization org = new Organization();
-        org.setOrgName(orgName);
-        org.setDescription(orgDescription);
-        org.setStreetAddress(orgStreetAddress);
-        org.setCity(orgCity);
-        org.setState(orgState);
-        org.setZipcode(orgZipcode);
+        Organization org = new Organization(orgName, orgDescription, orgStreetAddress, orgCity, orgState, orgZipcode);
         orgDao.addOrg(org);
         return "redirect:/organization";
     }
@@ -110,14 +104,8 @@ public class HeroController {
     }
     @RequestMapping(value="updateOrg", method=RequestMethod.POST)
     public String updateOrg(int orgID, String orgName, String description, String streetAddress, String city, String state, String zipcode) {
-        Organization org = new Organization();
+        Organization org = new Organization(orgName, description, streetAddress, city, state, zipcode);
         org.setOrgID(orgID);
-        org.setOrgName(orgName);
-        org.setDescription(description);
-        org.setStreetAddress(streetAddress);
-        org.setCity(city);
-        org.setState(state);
-        org.setZipcode(zipcode);
         orgDao.updateOrg(org);
         return "redirect:/organization";
     }

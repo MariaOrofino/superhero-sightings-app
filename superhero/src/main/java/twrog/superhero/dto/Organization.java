@@ -6,6 +6,8 @@
 
 package twrog.superhero.dto;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
@@ -21,6 +23,28 @@ public class Organization {
     private String state;
     private String zipcode;
 
+    public Organization() {}
+    public Organization(String orgName, String description, String streetAddress, String city, String state, String zipcode) {
+        if (orgName != null && orgName.trim().length() > 0) {
+            this.orgName = orgName;
+        }
+        if (description != null && description.trim().length() > 0) {
+            this.description = description;
+        }
+        if (streetAddress != null && streetAddress.trim().length() > 0) {
+            this.streetAddress = streetAddress;
+        }
+        if (city != null && city.trim().length() > 0) {
+            this.city = city;
+        }
+        if (state != null && state.trim().length() > 0) {
+            this.state = state;
+        }
+        if (zipcode != null && zipcode.trim().length() > 0) {
+            this.zipcode = zipcode;
+        }
+    }
+    
     public int getOrgID() {
         return orgID;
     }
