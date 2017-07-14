@@ -91,8 +91,8 @@ public class HeroController {
         return "/organization";
     }
     @RequestMapping(value="addOrg", method=RequestMethod.POST)
-    public String addOrg(String orgName, String orgDescription, String orgStreetAddress, String orgCity, String orgState, String orgZipcode) {
-        Organization org = new Organization(orgName, orgDescription, orgStreetAddress, orgCity, orgState, orgZipcode);
+    public String addOrg(String orgName, String description, String streetAddress, String city, String state, String zipcode) {
+        Organization org = new Organization(orgName, description, streetAddress, city, state, zipcode);
         orgDao.addOrg(org);
         return "redirect:/organization";
     }

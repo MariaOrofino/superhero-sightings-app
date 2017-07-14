@@ -59,27 +59,27 @@
                     <form action="${pageContext.request.contextPath}/addOrg" method="post">
                         <div class="form-group">
                             <label for="orgName">Organization Name:</label>
-                            <input id="orgName" name="orgName" type="text" maxlength="45" class="form-control"/>                            
+                            <input name="orgName" type="text" maxlength="45" class="form-control"/>                            
                         </div>                        
                         <div class="form-group">
-                            <label for="orgDescription">Description:</label>
-                            <textarea id="orgDescription" name="orgDescription" maxlength="300" class="form-control" rows="10"></textarea>
+                            <label for="description">Description:</label>
+                            <textarea name="description" maxlength="300" class="form-control" rows="10"></textarea>
                         </div>                                                
                         <div class="form-group">
-                            <label for="orgStreetAddress">Street Address:</label>
-                            <input id="orgStreetAddress" name="orgStreetAddress" type="text" maxlength="45" class="form-control"/>                            
+                            <label for="streetAddress">Street Address:</label>
+                            <input name="streetAddress" type="text" maxlength="45" class="form-control"/>                            
                         </div>  
                         <div class="form-group">
-                            <label for="orgCity">City:</label>
-                            <input id="orgCity" name="orgCity" type="text" maxlength="45" class="form-control"/>                            
+                            <label for="city">City:</label>
+                            <input name="city" type="text" maxlength="45" class="form-control"/>                            
                         </div>  
                         <div class="form-group">
-                            <label for="orgState">State (must use acronym):</label>
-                            <input id="orgState" name="orgState" type="text" maxlength="2" class="form-control"/>                            
+                            <label for="state">State (must use acronym):</label>
+                            <input name="state" type="text" maxlength="2" class="form-control"/>                            
                         </div>  
                         <div class="form-group">
-                            <label for="orgZipcode">ZIP Code:</label>
-                            <input id="orgZipcode" name="orgZipcode" type="text" maxlength="10" class="form-control"/>                            
+                            <label for="zipcode">ZIP Code:</label>
+                            <input name="zipcode" type="text" maxlength="10" class="form-control"/>                            
                         </div>                          
                         <button type="submit" class="btn btn-primary">Submit</button> 
                     </form>
