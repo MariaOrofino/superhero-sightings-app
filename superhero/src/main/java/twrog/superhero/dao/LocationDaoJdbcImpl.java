@@ -26,12 +26,12 @@ public class LocationDaoJdbcImpl implements LocationDao {
             + "(LocationName, Description, StreetAddress, City, State, Zipcode, Latitude, Longitude) "
             + "values (?,?,?,?,?,?,?,?)";
     private static final String SQL_SELECT_LOCATION_BY_ID = "select * from Location where LocationID = ?";
-    private static final String SQL_SELECT_ALL_LOCATIONS = "select * from Location";
+    private static final String SQL_SELECT_ALL_LOCATIONS = "select * from Location order by Location.LocationName";
     private static final String SQL_SELECT_LOCATIONS_BY_HERO_ID =
             "select Location.* from Location" +
             " inner join Sighting on Location.LocationID = Sighting.LocationID" +
             " inner join Hero on Hero.HeroID = Sighting.HeroID" +
-            " where Hero.HeroID = ?";
+            " where Hero.HeroID = ? order by Location.LocationName";
     private static final String SQL_UPDATE_LOCATION_BY_ID = "update Location "
             + "set LocationName = ?, Description = ?, StreetAddress = ?, City = ?, State = ?, Zipcode = ?, Latitude = ?, Longitude = ? "
             + "where LocationID = ?";

@@ -25,12 +25,12 @@ public class OrgDaoJdbcImpl implements OrgDao {
             "insert into Organization (OrgName, Description, StreetAddress, City, State, Zipcode) "
             + "values (?, ?, ?, ?, ?, ?)";
     private static final String SQL_SELECT_ORG_BY_ID = "select Organization.* from Organization where OrganizationID = ?";
-    private static final String SQL_SELECT_ALL_ORGS = "select * from Organization";
+    private static final String SQL_SELECT_ALL_ORGS = "select * from Organization order by Organization.OrgName";
     private static final String SQL_SELECT_ORGS_BY_HER0_ID =
             "select Organization.* from Organization" +
             " inner join HeroOrganization on HeroOrganization.OrganizationID = Organization.OrganizationID" +
             " inner join Hero on Hero.HeroID = HeroOrganization.HeroID" +
-            " where Hero.HeroID = ?";
+            " where Hero.HeroID = ? order by Organization.OrgName";
     private static final String SQL_UPDATE_ORG_BY_ID =
             "update Organization set OrgName = ?, Description = ?, StreetAddress = ?, City = ?, State = ?, Zipcode = ? "
             + "where OrganizationID = ?";

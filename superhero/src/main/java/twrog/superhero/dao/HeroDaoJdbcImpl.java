@@ -22,17 +22,17 @@ import twrog.superhero.dto.Hero;
 public class HeroDaoJdbcImpl implements HeroDao {
     private static final String SQL_INSERT_HERO = "insert into Hero (HeroName,Description) values (?,?)";
     private static final String SQL_SELECT_HERO_BY_ID = "select * from Hero where HeroID = ?";
-    private static final String SQL_SELECT_ALL_HEROS = "select * from Hero";
+    private static final String SQL_SELECT_ALL_HEROS = "select * from Hero order by Hero.HeroName";
     private static final String SQL_SELECT_HEROS_BY_LOCATION_ID =
             "select Hero.* from Hero" +
             " inner join Sighting on Hero.HeroID = Sighting.HeroID" +
             " inner join Location on Location.LocationID = Sighting.LocationID" +
-            " where Location.LocationID = ?";
+            " where Location.LocationID = ? order by Hero.HeroName";
     private static final String SQL_SELECT_HEROS_BY_ORGANIZATION_ID =
             "select Hero.* from Hero" +
             " inner join HeroOrganization on HeroOrganization.HeroID = Hero.HeroID" +
             " inner join Organization on Organization.OrganizationID = HeroOrganization.OrganizationID" +
-            " where Organization.OrganizationID = ?";
+            " where Organization.OrganizationID = ? order by Hero.HeroName";
     private static final String SQL_UPDATE_HERO_BY_ID = "update Hero set HeroName = ?, Description = ? where HeroID = ?";
     private static final String SQL_DELETE_HERO_BY_ID = "delete from Hero where HeroID = ?";
     

@@ -33,7 +33,7 @@ public class SightingDaoJdbcImpl implements SightingDao {
     private static final String SQL_SELECT_ALL_SIGHTINGS =
             "select Hero.*, Location.*, Sighting.SightingID, Sighting.SightingDate from Location" +
             " inner join Sighting on Location.LocationID = Sighting.LocationID" +
-            " inner join Hero on Hero.HeroID = Sighting.HeroID order by Sighting.SightingDate";
+            " inner join Hero on Hero.HeroID = Sighting.HeroID order by Sighting.SightingDate desc";
     private static final String SQL_SELECT_SIGHTINGS_ORDER_BY_DATE_LIMIT_10 =
             "select Hero.*, Location.*, Sighting.SightingID, Sighting.SightingDate from Location" +
             " inner join Sighting on Location.LocationID = Sighting.LocationID" +
