@@ -44,16 +44,18 @@ public class OrgDaoJdbcImpl implements OrgDao {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void addOrg(Organization org) {
-        jdbcTemplate.update(SQL_INSERT_ORG,
-                org.getOrgName(),
-                org.getDescription(),
-                org.getStreetAddress(),
-                org.getCity(),
-                org.getState(),
-                org.getZipcode()
-        );
-        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
-        org.setOrgID(id);
+        if (org != null && org.getOrgName() != null && org.getOrgName().trim().length() > 0) {
+            jdbcTemplate.update(SQL_INSERT_ORG,
+                    org.getOrgName(),
+                    org.getDescription(),
+                    org.getStreetAddress(),
+                    org.getCity(),
+                    org.getState(),
+                    org.getZipcode()
+            );
+            int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+            org.setOrgID(id);
+        }
     }
     @Override
     public Organization getOrgByID(int orgID) {
@@ -73,15 +75,17 @@ public class OrgDaoJdbcImpl implements OrgDao {
     }
     @Override
     public void updateOrg(Organization org) {
-        jdbcTemplate.update(SQL_UPDATE_ORG_BY_ID,
-                org.getOrgName(),
-                org.getDescription(),
-                org.getStreetAddress(),
-                org.getCity(),
-                org.getState(),
-                org.getZipcode(),
-                org.getOrgID()
-        );
+        if (org != null && org.getOrgName() != null && org.getOrgID() > 0 && org.getOrgName().trim().length() > 0) {
+            jdbcTemplate.update(SQL_UPDATE_ORG_BY_ID,
+                    org.getOrgName(),
+                    org.getDescription(),
+                    org.getStreetAddress(),
+                    org.getCity(),
+                    org.getState(),
+                    org.getZipcode(),
+                    org.getOrgID()
+            );
+        }
     }
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
