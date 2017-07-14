@@ -58,10 +58,12 @@ public class SightingDaoJdbcImpl implements SightingDao {
     
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void addSighting(Sighting sighting) {        
-        jdbcTemplate.update(SQL_INSERT_SIGHTING, sighting.getLocation().getLocationID(), sighting.getDate().toString(), sighting.getHero().getHeroID());
-        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
-        sighting.setSightingID(id);
+    public void addSighting(Sighting sighting) {
+        if (sighting != null && sighting.getDate() != null && sighting.getHero() != null && sighting.getLocation() != null && sighting.getHero().getHeroID() > 0 && sighting.getLocation().getLocationID() > 0) {
+            jdbcTemplate.update(SQL_INSERT_SIGHTING, sighting.getLocation().getLocationID(), sighting.getDate().toString(), sighting.getHero().getHeroID());
+            int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+            sighting.setSightingID(id);
+        }
     }
     @Override
     public Sighting getSightingByID(int sightingID) {
@@ -89,7 +91,9 @@ public class SightingDaoJdbcImpl implements SightingDao {
     }
     @Override
     public void updateSighting(Sighting sighting) {
-        jdbcTemplate.update(SQL_UPDATE_SIGHTING_BY_ID, sighting.getLocation().getLocationID(), sighting.getDate().toString(), sighting.getHero().getHeroID(), sighting.getSightingID());
+        if (sighting != null && sighting.getDate() != null && sighting.getHero() != null && sighting.getLocation() != null && sighting.getSightingID() > 0 && sighting.getHero().getHeroID() > 0 && sighting.getLocation().getLocationID() > 0) {
+            jdbcTemplate.update(SQL_UPDATE_SIGHTING_BY_ID, sighting.getLocation().getLocationID(), sighting.getDate().toString(), sighting.getHero().getHeroID(), sighting.getSightingID());
+        }
     }
     @Override
     public void deleteSightingByID(int sightingID) {
