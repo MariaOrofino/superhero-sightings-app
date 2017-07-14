@@ -190,8 +190,8 @@ public class HeroController {
         return "/location";
     }
     @RequestMapping(value="addLocation", method=RequestMethod.POST)
-    public String addLocation(String locationName, String locationDescription, String locationStreetAddress, String locationCity, String locationState, String locationZipcode, String locationLatitude, String locationLongitude) {
-        Location location = new Location(locationName,locationDescription,locationStreetAddress,locationCity,locationState,locationZipcode,locationLatitude,locationLongitude);        
+    public String addLocation(String locationName, String description, String streetAddress, String city, String state, String zipcode, String latitude, String longitude) {
+        Location location = new Location(locationName,description,streetAddress,city,state,zipcode,latitude,longitude);        
         locationDao.addLocation(location);
         return "redirect:/location";
     }

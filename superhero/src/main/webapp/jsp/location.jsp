@@ -63,35 +63,35 @@
                     <form action="${pageContext.request.contextPath}/addLocation" method="post">
                         <div class="form-group">
                             <label for="locationName">Location Name:</label>
-                            <input id="locationName" name="locationName" type="text" maxlength="45" class="form-control"/>                            
+                            <input name="locationName" type="text" maxlength="45" class="form-control"/>                            
                         </div>                        
                         <div class="form-group">
-                            <label for="locationDescription">Description:</label>
-                            <textarea id="locationDescription" name="locationDescription" maxlength="300" class="form-control" rows="10"></textarea>
+                            <label for="description">Description:</label>
+                            <textarea name="description" maxlength="300" class="form-control" rows="10"></textarea>
                         </div>                                                
                         <div class="form-group">
-                            <label for="locationStreetAddress">Street Address:</label>
-                            <input id="locationStreetAddress" name="locationStreetAddress" type="text" maxlength="45" class="form-control"/>                            
+                            <label for="streetAddress">Street Address:</label>
+                            <input name="streetAddress" type="text" maxlength="45" class="form-control"/>                            
                         </div>  
                         <div class="form-group">
-                            <label for="locationCity">City:</label>
-                            <input id="locationCity" name="locationCity" type="text" maxlength="45" class="form-control"/>                            
+                            <label for="city">City:</label>
+                            <input name="city" type="text" maxlength="45" class="form-control"/>                            
                         </div>  
                         <div class="form-group">
-                            <label for="locationState">State (must use acronym):</label>
-                            <input id="locationState" name="locationState" type="text" maxlength="2" class="form-control"/>                            
+                            <label for="state">State (must use acronym):</label>
+                            <input name="state" type="text" maxlength="2" class="form-control"/>                            
                         </div>  
                         <div class="form-group">
-                            <label for="locationZipcode">ZIP Code:</label>
-                            <input id="locationZipcode" name="locationZipcode" type="text" maxlength="10" class="form-control"/>                            
+                            <label for="zipcode">ZIP Code:</label>
+                            <input name="zipcode" type="text" maxlength="10" class="form-control"/>                            
                         </div>         
                         <div class="form-group">
-                            <label for="locationLatitude">Latitude:</label>
-                            <input id="locationLatitude" name="locationLatitude" type="text" class="form-control"/>                            
+                            <label for="latitude">Latitude:</label>
+                            <input name="latitude" type="text" class="form-control"/>                            
                         </div>     
                         <div class="form-group">
-                            <label for="locationLongitude">Longitude:</label>
-                            <input id="locationLongitude" name="locationLongitude" type="text" class="form-control"/>                            
+                            <label for="longitude">Longitude:</label>
+                            <input name="longitude" type="text" class="form-control"/>                            
                         </div>     
                         <button type="submit" class="btn btn-primary">Submit</button> 
                     </form>
