@@ -7,6 +7,7 @@
 package twrog.superhero.dto;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
@@ -23,6 +24,44 @@ public class Location {
     private String zipcode;
     private BigDecimal latitude;
     private BigDecimal longitude;
+    
+    public Location() {}
+    public Location(String locationName, String description, String streetAddress, String city, String state, String zipcode, String latitude, String longitude) {
+        if (locationName != null && locationName.trim().length() > 0) {
+            this.locationName = locationName;
+        }
+        if (description != null && description.trim().length() > 0) {
+            this.description = description;
+        }
+        if (streetAddress != null && streetAddress.trim().length() > 0) {
+            this.streetAddress = streetAddress;
+        }
+        if (city != null && city.trim().length() > 0) {
+            this.city = city;
+        }
+        if (state != null && state.trim().length() > 0) {
+            this.state = state;
+        }
+        if (zipcode != null && zipcode.trim().length() > 0) {
+            this.zipcode = zipcode;
+        }
+        if (latitude != null && latitude.trim().length() > 0) {
+            try {
+                BigDecimal lat = new BigDecimal(latitude).setScale(6, RoundingMode.HALF_UP);
+                if(lat.abs().compareTo(new BigDecimal("90")) <= 0) {
+                    this.latitude = lat;
+                }
+            } catch (NumberFormatException e) {}
+        }
+        if (longitude != null && longitude.trim().length() > 0) {
+            try {
+                BigDecimal lon = new BigDecimal(longitude).setScale(6, RoundingMode.HALF_UP);
+                if (lon.abs().compareTo(new BigDecimal("180")) <= 0) {
+                    this.longitude= lon;
+                }                
+            } catch (NumberFormatException e) {}
+        }
+    }
     
     public int getLocationID() {
         return locationID;

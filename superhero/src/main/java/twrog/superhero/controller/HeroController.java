@@ -191,41 +191,7 @@ public class HeroController {
     }
     @RequestMapping(value="addLocation", method=RequestMethod.POST)
     public String addLocation(String locationName, String locationDescription, String locationStreetAddress, String locationCity, String locationState, String locationZipcode, String locationLatitude, String locationLongitude) {
-        Location location = new Location();
-        if (!(locationName.trim().length() == 0)) {
-            location.setLocationName(locationName);
-        }
-        if (!(locationDescription.trim().length() == 0)) {
-            location.setDescription(locationDescription);
-        }
-        if (!(locationStreetAddress.trim().length() == 0)) {
-            location.setStreetAddress(locationStreetAddress);
-        }
-        if (!(locationCity.trim().length() == 0)) {
-            location.setCity(locationCity);
-        }
-        if (!(locationState.trim().length() == 0)) {
-            location.setState(locationState);
-        }
-        if (!(locationZipcode.trim().length() == 0)) {
-            location.setZipcode(locationZipcode);
-        }
-        if (!(locationLatitude.trim().length() == 0)) {
-            try {
-                BigDecimal lat = new BigDecimal(locationLatitude).setScale(6, RoundingMode.HALF_UP);
-                if(lat.abs().compareTo(new BigDecimal("90")) <= 0) {
-                    location.setLatitude(lat);
-                }
-            } catch (NumberFormatException e) {}
-        }
-        if (!(locationLongitude.trim().length() == 0)) {
-            try {
-                BigDecimal lon = new BigDecimal(locationLongitude).setScale(6, RoundingMode.HALF_UP);
-                if (lon.abs().compareTo(new BigDecimal("180")) <= 0) {
-                    location.setLongitude(lon);
-                }                
-            } catch (NumberFormatException e) {}
-        }
+        Location location = new Location(locationName,locationDescription,locationStreetAddress,locationCity,locationState,locationZipcode,locationLatitude,locationLongitude);        
         locationDao.addLocation(location);
         return "redirect:/location";
     }
@@ -237,30 +203,8 @@ public class HeroController {
     }
     @RequestMapping(value="updateLocation", method=RequestMethod.POST)
     public String updateLocation(int locationID, String locationName, String description, String streetAddress, String city, String state, String zipcode, String latitude, String longitude) {
-        Location location = new Location();
-        location.setLocationID(locationID);
-        location.setLocationName(locationName);
-        location.setDescription(description);
-        location.setStreetAddress(streetAddress);
-        location.setCity(city);
-        location.setState(state);
-        location.setZipcode(zipcode);
-        if (!(latitude.trim().length() == 0)) {
-            try {
-                BigDecimal lat = new BigDecimal(latitude).setScale(6, RoundingMode.HALF_UP);
-                if(lat.abs().compareTo(new BigDecimal("90")) <= 0) {
-                    location.setLatitude(lat);
-                }
-            } catch (NumberFormatException e) {}
-        }
-        if (!(longitude.trim().length() == 0)) {
-            try {
-                BigDecimal lon = new BigDecimal(longitude).setScale(6, RoundingMode.HALF_UP);
-                if (lon.abs().compareTo(new BigDecimal("180")) <= 0) {
-                    location.setLongitude(lon);
-                }                
-            } catch (NumberFormatException e) {}
-        }
+        Location location = new Location(locationName,description,streetAddress,city,state,zipcode,latitude,longitude);
+        location.setLocationID(locationID);       
         locationDao.updateLocation(location);
         return "redirect:/location";
     }
