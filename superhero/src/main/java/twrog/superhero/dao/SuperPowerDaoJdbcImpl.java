@@ -39,9 +39,11 @@ public class SuperPowerDaoJdbcImpl implements SuperPowerDao {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void addSuperPower(SuperPower sp) {
+        if (sp != null && sp.getSuperPowerID() > 0 && sp.getDescription() != null) {
         jdbcTemplate.update(SQL_INSERT_SUPER_POWER, sp.getDescription());
         int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
         sp.setSuperPowerID(id);
+        }
     }
     @Override
     public SuperPower getSuperPowerByID(int superPowerID) {
@@ -61,7 +63,9 @@ public class SuperPowerDaoJdbcImpl implements SuperPowerDao {
     }
     @Override
     public void updateSuperPower(SuperPower sp) {
+        if (sp != null && sp.getSuperPowerID() > 0 && sp.getDescription() != null) {
         jdbcTemplate.update(SQL_UPDATE_SUPER_POWER_BY_ID, sp.getDescription(), sp.getSuperPowerID());
+        }
     }
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
