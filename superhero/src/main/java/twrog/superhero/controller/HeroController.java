@@ -1,6 +1,7 @@
 package twrog.superhero.controller;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import javax.inject.Inject;
@@ -47,13 +48,13 @@ public class HeroController {
     public String home(Model model) {
         List<Sighting> sightings = sightingDao.getAllSightingsToLimit();
         model.addAttribute("sightings", sightings);
-        return "index";
+        return "/index";
     }
     @RequestMapping(value="hero", method=RequestMethod.GET)
     public String displayHeros(Model model) {
         List<Hero> heros = heroDao.getAllHeros();
         model.addAttribute("heros", heros);
-        return "hero";
+        return "/hero";
     }
     @RequestMapping(value="addHero", method=RequestMethod.POST)
     public String addHero(String heroName, String heroDescription) {
@@ -61,7 +62,7 @@ public class HeroController {
         hero.setHeroName(heroName);
         hero.setDescription(heroDescription);
         heroDao.addHero(hero);
-        return "redirect:hero";
+        return "redirect:/hero";
     }
     @RequestMapping(value="/editHero/{heroID}", method=RequestMethod.GET)
     public String editHero(@PathVariable("heroID") int id, Model model) {
@@ -76,7 +77,7 @@ public class HeroController {
         hero.setHeroName(heroName);
         hero.setDescription(heroDescription);
         heroDao.updateHero(hero);
-        return "redirect:hero";
+        return "redirect:/hero";
     }
     @RequestMapping(value="/deleteHero/{heroID}", method=RequestMethod.GET)
     public String deleteHero(@PathVariable("heroID") int id) {
@@ -87,7 +88,7 @@ public class HeroController {
     public String displayOrgs(Model model) {
         List<Organization> orgs = orgDao.getAllOrgs();
         model.addAttribute("orgs", orgs);
-        return "organization";
+        return "/organization";
     }
     @RequestMapping(value="addOrg", method=RequestMethod.POST)
     public String addOrg(String orgName, String orgDescription, String orgStreetAddress, String orgCity, String orgState, String orgZipcode) {
@@ -99,7 +100,7 @@ public class HeroController {
         org.setState(orgState);
         org.setZipcode(orgZipcode);
         orgDao.addOrg(org);
-        return "redirect:organization";
+        return "redirect:/organization";
     }
     @RequestMapping(value="deleteOrg/{orgID}", method=RequestMethod.GET)
     public String deleteOrg(@PathVariable("orgID") int id) {
@@ -110,7 +111,7 @@ public class HeroController {
     public String displaySightings(Model model) {
         List<Sighting> sightings = sightingDao.getAllSightings();
         model.addAttribute("sightings", sightings);
-        return "sighting";
+        return "/sighting";
     }
     @RequestMapping(value="reportSighting", method=RequestMethod.GET)
     public String reportSighting(Model model) {
@@ -118,10 +119,10 @@ public class HeroController {
         List<Location> locations = locationDao.getAllLocations();
         model.addAttribute("heros", heros);
         model.addAttribute("locations", locations);
-        return "reportSighting";
+        return "/reportSighting";
     }
     @RequestMapping(value="addSighting", method=RequestMethod.POST)
-    public String addSighting(int heroID, int locationID, String sightingDate) {                
+    public String addSighting(int heroID, int locationID, String sightingDate) {
         Hero hero = new Hero();
         hero.setHeroID(heroID);
         Location location = new Location();
@@ -132,7 +133,7 @@ public class HeroController {
         sighting.setHero(hero);
         sighting.setLocation(location);
         sightingDao.addSighting(sighting);
-        return "redirect:sighting";
+        return "redirect:/sighting";
     }
     @RequestMapping(value="editSighting/{sightingID}", method=RequestMethod.GET)
     public String editSighting(@PathVariable("sightingID") int sightingID, Model model) {
@@ -142,7 +143,7 @@ public class HeroController {
         model.addAttribute("heros", heros);
         model.addAttribute("locations", locations);
         model.addAttribute("sightingToEdit", sighting);
-        return "editSighting";
+        return "/editSighting";
     }
     @RequestMapping(value="updateSighting", method=RequestMethod.POST)
     public String updateSighting(String sightingDate, int heroID, int locationID, int sightingID) {
@@ -167,7 +168,7 @@ public class HeroController {
     public String displayLocations(Model model) {
         List<Location> locations = locationDao.getAllLocations();
         model.addAttribute("locations", locations);
-        return "location";
+        return "/location";
     }
     @RequestMapping(value="addLocation", method=RequestMethod.POST)
     public String addLocation(String locationName, String locationDescription, String locationStreetAddress, String locationCity, String locationState, String locationZipcode, String locationLatitude, String locationLongitude) {
@@ -192,15 +193,56 @@ public class HeroController {
         }
         if (!(locationLatitude.trim().length() == 0)) {
             try {
-            location.setLatitude(new BigDecimal(locationLatitude));
+                BigDecimal lat = new BigDecimal(locationLatitude).setScale(6, RoundingMode.HALF_UP);
+                if(lat.abs().compareTo(new BigDecimal("90")) <= 0) {
+                    location.setLatitude(lat);
+                }
             } catch (NumberFormatException e) {}
         }
         if (!(locationLongitude.trim().length() == 0)) {
             try {
-            location.setLongitude(new BigDecimal(locationLongitude));
+                BigDecimal lon = new BigDecimal(locationLongitude).setScale(6, RoundingMode.HALF_UP);
+                if (lon.abs().compareTo(new BigDecimal("180")) <= 0) {
+                    location.setLongitude(lon);
+                }                
             } catch (NumberFormatException e) {}
-        }                                        
+        }
         locationDao.addLocation(location);
+        return "redirect:/location";
+    }
+    @RequestMapping(value="editLocation/{locationID}", method=RequestMethod.GET)
+    public String editLocation(@PathVariable("locationID") int id, Model model) {
+        Location location = locationDao.getLocationByID(id);
+        model.addAttribute("locationToEdit", location);
+        return "/editLocation";
+    }
+    @RequestMapping(value="updateLocation", method=RequestMethod.POST)
+    public String updateLocation(int locationID, String locationName, String description, String streetAddress, String city, String state, String zipcode, String latitude, String longitude) {
+        Location location = new Location();
+        location.setLocationID(locationID);
+        location.setLocationName(locationName);
+        location.setDescription(description);
+        location.setStreetAddress(streetAddress);
+        location.setCity(city);
+        location.setState(state);
+        location.setZipcode(zipcode);
+        if (!(latitude.trim().length() == 0)) {
+            try {
+                BigDecimal lat = new BigDecimal(latitude).setScale(6, RoundingMode.HALF_UP);
+                if(lat.abs().compareTo(new BigDecimal("90")) <= 0) {
+                    location.setLatitude(lat);
+                }
+            } catch (NumberFormatException e) {}
+        }
+        if (!(longitude.trim().length() == 0)) {
+            try {
+                BigDecimal lon = new BigDecimal(longitude).setScale(6, RoundingMode.HALF_UP);
+                if (lon.abs().compareTo(new BigDecimal("180")) <= 0) {
+                    location.setLongitude(lon);
+                }                
+            } catch (NumberFormatException e) {}
+        }
+        locationDao.updateLocation(location);
         return "redirect:/location";
     }
     @RequestMapping(value="deleteLocation/{locationID}", method=RequestMethod.GET)

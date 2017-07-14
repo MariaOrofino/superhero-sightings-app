@@ -27,7 +27,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2 class="text-center">Super Organizations</h2>
+                    <h2 class="text-center">Hero Organizations</h2>
                     <table class="table table-bordered table-hover table-responsive table-striped">
                         <thead>
                             <tr>
