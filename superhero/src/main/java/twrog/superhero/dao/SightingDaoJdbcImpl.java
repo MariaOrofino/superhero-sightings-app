@@ -58,7 +58,7 @@ public class SightingDaoJdbcImpl implements SightingDao {
     
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void addSighting(Sighting sighting) {
+    public void addSighting(Sighting sighting) {        
         jdbcTemplate.update(SQL_INSERT_SIGHTING, sighting.getLocation().getLocationID(), sighting.getDate().toString(), sighting.getHero().getHeroID());
         int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
         sighting.setSightingID(id);
