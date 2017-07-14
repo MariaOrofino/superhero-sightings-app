@@ -71,9 +71,9 @@ public class HeroController {
         return "/editHero";
     }
     @RequestMapping(value="updateHero", method=RequestMethod.POST)
-    public String updateHero(String heroID, String heroName, String heroDescription) {
+    public String updateHero(int heroID, String heroName, String heroDescription) {
         Hero hero = new Hero();
-        hero.setHeroID(Integer.parseInt(heroID));
+        hero.setHeroID(heroID);
         hero.setHeroName(heroName);
         hero.setDescription(heroDescription);
         heroDao.updateHero(hero);
@@ -100,6 +100,25 @@ public class HeroController {
         org.setState(orgState);
         org.setZipcode(orgZipcode);
         orgDao.addOrg(org);
+        return "redirect:/organization";
+    }
+    @RequestMapping(value="editOrg/{orgID}", method=RequestMethod.GET)
+    public String editOrg(@PathVariable("orgID") int id, Model model) {
+        Organization org = orgDao.getOrgByID(id);
+        model.addAttribute("orgToEdit", org);
+        return "/editOrg";
+    }
+    @RequestMapping(value="updateOrg", method=RequestMethod.POST)
+    public String updateOrg(int orgID, String orgName, String description, String streetAddress, String city, String state, String zipcode) {
+        Organization org = new Organization();
+        org.setOrgID(orgID);
+        org.setOrgName(orgName);
+        org.setDescription(description);
+        org.setStreetAddress(streetAddress);
+        org.setCity(city);
+        org.setState(state);
+        org.setZipcode(zipcode);
+        orgDao.updateOrg(org);
         return "redirect:/organization";
     }
     @RequestMapping(value="deleteOrg/{orgID}", method=RequestMethod.GET)
