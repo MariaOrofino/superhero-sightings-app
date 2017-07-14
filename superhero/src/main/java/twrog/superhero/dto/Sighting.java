@@ -18,7 +18,7 @@ public class Sighting {
     private Hero hero;
     private Location location;
     private LocalDate date;
-
+    
     public int getSightingID() {
         return sightingID;
     }
