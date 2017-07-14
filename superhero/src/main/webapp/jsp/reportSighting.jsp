@@ -30,7 +30,7 @@
             <form action="${pageContext.request.contextPath}/addSighting" method="post">                        
                 <div class="form-group">
                     <label for="sightingDate">Date:</label>
-                    <input id="sightingDate" name="sightingDate" type="date" class="form-control"/>                            
+                    <input id="sightingDate" name="sightingDate" type="date" class="form-control" value="${today}"/>                            
                 </div>    
                 <div class="form-group">
                     <label for="heroID">Hero:</label>

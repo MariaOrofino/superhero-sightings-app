@@ -124,8 +124,10 @@ public class HeroController {
     public String reportSighting(Model model) {
         List<Hero> heros = heroDao.getAllHeros();
         List<Location> locations = locationDao.getAllLocations();
+        LocalDate today = LocalDate.now();
         model.addAttribute("heros", heros);
         model.addAttribute("locations", locations);
+        model.addAttribute("today", today);
         return "/reportSighting";
     }
     @RequestMapping(value="addSighting", method=RequestMethod.POST)
