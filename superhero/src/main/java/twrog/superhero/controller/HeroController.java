@@ -26,15 +26,13 @@ import twrog.superhero.dto.Sighting;
 @Controller
 public class HeroController {
     HeroDao heroDao;
-    LocationDao locationDao;
     OrgDao orgDao;
     SightingDao sightingDao;
     SuperPowerDao superPowerDao;
     
     @Inject
-    public HeroController(HeroDao heroDao, LocationDao locationDao, OrgDao orgDao, SightingDao sightingDao, SuperPowerDao superPowerDao) {
+    public HeroController(HeroDao heroDao, OrgDao orgDao, SightingDao sightingDao, SuperPowerDao superPowerDao) {
         this.heroDao = heroDao;
-        this.locationDao = locationDao;
         this.orgDao = orgDao;
         this.sightingDao = sightingDao;
         this.superPowerDao = superPowerDao;
@@ -108,93 +106,63 @@ public class HeroController {
         orgDao.deleteOrg(id);
         return "redirect:/organization";
     }
-    @RequestMapping(value="sighting", method=RequestMethod.GET)
-    public String displaySightings(Model model) {
-        List<Sighting> sightings = sightingDao.getAllSightings();
-        model.addAttribute("sightings", sightings);
-        return "/sighting";
-    }
-    @RequestMapping(value="reportSighting", method=RequestMethod.GET)
-    public String reportSighting(Model model) {
-        List<Hero> heros = heroDao.getAllHeros();
-        List<Location> locations = locationDao.getAllLocations();
-        LocalDate today = LocalDate.now();
-        model.addAttribute("heros", heros);
-        model.addAttribute("locations", locations);
-        model.addAttribute("today", today);
-        return "/reportSighting";
-    }
-    @RequestMapping(value="addSighting", method=RequestMethod.POST)
-    public String addSighting(int heroID, int locationID, String sightingDate) {
-        Hero hero = new Hero();
-        hero.setHeroID(heroID);
-        Location location = new Location();
-        location.setLocationID(locationID);
-        Sighting sighting = new Sighting();
-        LocalDate date = LocalDate.parse(sightingDate);
-        sighting.setDate(date);
-        sighting.setHero(hero);
-        sighting.setLocation(location);
-        sightingDao.addSighting(sighting);
-        return "redirect:/sighting";
-    }
-    @RequestMapping(value="editSighting/{sightingID}", method=RequestMethod.GET)
-    public String editSighting(@PathVariable("sightingID") int sightingID, Model model) {
-        Sighting sighting = sightingDao.getSightingByID(sightingID);
-        List<Hero> heros = heroDao.getAllHeros();
-        List<Location> locations = locationDao.getAllLocations();
-        model.addAttribute("heros", heros);
-        model.addAttribute("locations", locations);
-        model.addAttribute("sightingToEdit", sighting);
-        return "/editSighting";
-    }
-    @RequestMapping(value="updateSighting", method=RequestMethod.POST)
-    public String updateSighting(String sightingDate, int heroID, int locationID, int sightingID) {
-        Hero hero = new Hero();
-        hero.setHeroID(heroID);
-        Location location = new Location();
-        location.setLocationID(locationID);
-        Sighting sighting = new Sighting();
-        sighting.setSightingID(sightingID);
-        sighting.setDate(LocalDate.parse(sightingDate));
-        sighting.setHero(hero);
-        sighting.setLocation(location);
-        sightingDao.updateSighting(sighting);
-        return "redirect:/sighting";
-    }
-    @RequestMapping(value="deleteSighting/{sightingID}", method=RequestMethod.GET)
-    public String deleteSighting(@PathVariable("sightingID") int id) {
-        sightingDao.deleteSightingByID(id);
-        return "redirect:/sighting";
-    }
-//    @RequestMapping(value="location", method=RequestMethod.GET)
-//    public String displayLocations(Model model) {
+//    @RequestMapping(value="sighting", method=RequestMethod.GET)
+//    public String displaySightings(Model model) {
+//        List<Sighting> sightings = sightingDao.getAllSightings();
+//        model.addAttribute("sightings", sightings);
+//        return "/sighting";
+//    }
+//    @RequestMapping(value="reportSighting", method=RequestMethod.GET)
+//    public String reportSighting(Model model) {
+//        List<Hero> heros = heroDao.getAllHeros();
 //        List<Location> locations = locationDao.getAllLocations();
+//        LocalDate today = LocalDate.now();
+//        model.addAttribute("heros", heros);
 //        model.addAttribute("locations", locations);
-//        return "/location";
+//        model.addAttribute("today", today);
+//        return "/reportSighting";
 //    }
-//    @RequestMapping(value="addLocation", method=RequestMethod.POST)
-//    public String addLocation(String locationName, String description, String streetAddress, String city, String state, String zipcode, String latitude, String longitude) {
-//        Location location = new Location(locationName,description,streetAddress,city,state,zipcode,latitude,longitude);        
-//        locationDao.addLocation(location);
-//        return "redirect:/location";
+//    @RequestMapping(value="addSighting", method=RequestMethod.POST)
+//    public String addSighting(int heroID, int locationID, String sightingDate) {
+//        Hero hero = new Hero();
+//        hero.setHeroID(heroID);
+//        Location location = new Location();
+//        location.setLocationID(locationID);
+//        Sighting sighting = new Sighting();
+//        LocalDate date = LocalDate.parse(sightingDate);
+//        sighting.setDate(date);
+//        sighting.setHero(hero);
+//        sighting.setLocation(location);
+//        sightingDao.addSighting(sighting);
+//        return "redirect:/sighting";
 //    }
-//    @RequestMapping(value="editLocation/{locationID}", method=RequestMethod.GET)
-//    public String editLocation(@PathVariable("locationID") int id, Model model) {
-//        Location location = locationDao.getLocationByID(id);
-//        model.addAttribute("locationToEdit", location);
-//        return "/editLocation";
+//    @RequestMapping(value="editSighting/{sightingID}", method=RequestMethod.GET)
+//    public String editSighting(@PathVariable("sightingID") int sightingID, Model model) {
+//        Sighting sighting = sightingDao.getSightingByID(sightingID);
+//        List<Hero> heros = heroDao.getAllHeros();
+//        List<Location> locations = locationDao.getAllLocations();
+//        model.addAttribute("heros", heros);
+//        model.addAttribute("locations", locations);
+//        model.addAttribute("sightingToEdit", sighting);
+//        return "/editSighting";
 //    }
-//    @RequestMapping(value="updateLocation", method=RequestMethod.POST)
-//    public String updateLocation(int locationID, String locationName, String description, String streetAddress, String city, String state, String zipcode, String latitude, String longitude) {
-//        Location location = new Location(locationName,description,streetAddress,city,state,zipcode,latitude,longitude);
-//        location.setLocationID(locationID);       
-//        locationDao.updateLocation(location);
-//        return "redirect:/location";
+//    @RequestMapping(value="updateSighting", method=RequestMethod.POST)
+//    public String updateSighting(String sightingDate, int heroID, int locationID, int sightingID) {
+//        Hero hero = new Hero();
+//        hero.setHeroID(heroID);
+//        Location location = new Location();
+//        location.setLocationID(locationID);
+//        Sighting sighting = new Sighting();
+//        sighting.setSightingID(sightingID);
+//        sighting.setDate(LocalDate.parse(sightingDate));
+//        sighting.setHero(hero);
+//        sighting.setLocation(location);
+//        sightingDao.updateSighting(sighting);
+//        return "redirect:/sighting";
 //    }
-//    @RequestMapping(value="deleteLocation/{locationID}", method=RequestMethod.GET)
-//    public String deleteLocation(@PathVariable("locationID") int id) {
-//        locationDao.deleteLocationByID(id);
-//        return "redirect:/location";
+//    @RequestMapping(value="deleteSighting/{sightingID}", method=RequestMethod.GET)
+//    public String deleteSighting(@PathVariable("sightingID") int id) {
+//        sightingDao.deleteSightingByID(id);
+//        return "redirect:/sighting";
 //    }
 }
