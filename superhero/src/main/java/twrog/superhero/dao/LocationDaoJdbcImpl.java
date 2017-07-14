@@ -45,18 +45,20 @@ public class LocationDaoJdbcImpl implements LocationDao {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void addLocation(Location location) {
-        jdbcTemplate.update(SQL_INSERT_LOCATION,
-                location.getLocationName(),
-                location.getDescription(),
-                location.getStreetAddress(),
-                location.getCity(),
-                location.getState(),
-                location.getZipcode(),
-                location.getLatitude(),
-                location.getLongitude()
-        );
-        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
-        location.setLocationID(id);
+        if (location != null && location.getLocationName() != null && location.getLocationName().trim().length() > 0) {
+            jdbcTemplate.update(SQL_INSERT_LOCATION,
+                    location.getLocationName(),
+                    location.getDescription(),
+                    location.getStreetAddress(),
+                    location.getCity(),
+                    location.getState(),
+                    location.getZipcode(),
+                    location.getLatitude(),
+                    location.getLongitude()
+            );
+            int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+            location.setLocationID(id);
+        }
     }
     @Override
     public Location getLocationByID(int locationID) {
@@ -76,17 +78,19 @@ public class LocationDaoJdbcImpl implements LocationDao {
     }
     @Override
     public void updateLocation(Location location) {
-        jdbcTemplate.update(SQL_UPDATE_LOCATION_BY_ID,
-                location.getLocationName(),
-                location.getDescription(),
-                location.getStreetAddress(),
-                location.getCity(),
-                location.getState(),
-                location.getZipcode(),
-                location.getLatitude(),
-                location.getLongitude(),
-                location.getLocationID()
-        );
+        if (location != null && location.getLocationName() != null && location.getLocationID() > 0 && location.getLocationName().trim().length() > 0) {
+            jdbcTemplate.update(SQL_UPDATE_LOCATION_BY_ID,
+                    location.getLocationName(),
+                    location.getDescription(),
+                    location.getStreetAddress(),
+                    location.getCity(),
+                    location.getState(),
+                    location.getZipcode(),
+                    location.getLatitude(),
+                    location.getLongitude(),
+                    location.getLocationID()
+            );
+        }
     }
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)

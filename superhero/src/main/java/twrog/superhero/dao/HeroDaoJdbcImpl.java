@@ -44,9 +44,11 @@ public class HeroDaoJdbcImpl implements HeroDao {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void addHero(Hero hero) {
-        jdbcTemplate.update(SQL_INSERT_HERO, hero.getHeroName(), hero.getDescription());
-        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
-        hero.setHeroID(id);
+        if (hero != null && hero.getHeroName() != null && hero.getHeroName().trim().length() > 0) {
+            jdbcTemplate.update(SQL_INSERT_HERO, hero.getHeroName(), hero.getDescription());
+            int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+            hero.setHeroID(id);
+        }
     }
     @Override
     public Hero getHeroByID(int heroID) {
@@ -70,7 +72,9 @@ public class HeroDaoJdbcImpl implements HeroDao {
     }
     @Override
     public void updateHero(Hero hero) {
-        jdbcTemplate.update(SQL_UPDATE_HERO_BY_ID, hero.getHeroName(), hero.getDescription(), hero.getHeroID());
+        if (hero != null && hero.getHeroName() != null && hero.getHeroID() > 0 && hero.getHeroName().trim().length() > 0) {
+            jdbcTemplate.update(SQL_UPDATE_HERO_BY_ID, hero.getHeroName(), hero.getDescription(), hero.getHeroID());
+        }
     }
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
