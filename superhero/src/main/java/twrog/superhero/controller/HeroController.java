@@ -167,34 +167,34 @@ public class HeroController {
         sightingDao.deleteSightingByID(id);
         return "redirect:/sighting";
     }
-    @RequestMapping(value="location", method=RequestMethod.GET)
-    public String displayLocations(Model model) {
-        List<Location> locations = locationDao.getAllLocations();
-        model.addAttribute("locations", locations);
-        return "/location";
-    }
-    @RequestMapping(value="addLocation", method=RequestMethod.POST)
-    public String addLocation(String locationName, String description, String streetAddress, String city, String state, String zipcode, String latitude, String longitude) {
-        Location location = new Location(locationName,description,streetAddress,city,state,zipcode,latitude,longitude);        
-        locationDao.addLocation(location);
-        return "redirect:/location";
-    }
-    @RequestMapping(value="editLocation/{locationID}", method=RequestMethod.GET)
-    public String editLocation(@PathVariable("locationID") int id, Model model) {
-        Location location = locationDao.getLocationByID(id);
-        model.addAttribute("locationToEdit", location);
-        return "/editLocation";
-    }
-    @RequestMapping(value="updateLocation", method=RequestMethod.POST)
-    public String updateLocation(int locationID, String locationName, String description, String streetAddress, String city, String state, String zipcode, String latitude, String longitude) {
-        Location location = new Location(locationName,description,streetAddress,city,state,zipcode,latitude,longitude);
-        location.setLocationID(locationID);       
-        locationDao.updateLocation(location);
-        return "redirect:/location";
-    }
-    @RequestMapping(value="deleteLocation/{locationID}", method=RequestMethod.GET)
-    public String deleteLocation(@PathVariable("locationID") int id) {
-        locationDao.deleteLocationByID(id);
-        return "redirect:/location";
-    }
+//    @RequestMapping(value="location", method=RequestMethod.GET)
+//    public String displayLocations(Model model) {
+//        List<Location> locations = locationDao.getAllLocations();
+//        model.addAttribute("locations", locations);
+//        return "/location";
+//    }
+//    @RequestMapping(value="addLocation", method=RequestMethod.POST)
+//    public String addLocation(String locationName, String description, String streetAddress, String city, String state, String zipcode, String latitude, String longitude) {
+//        Location location = new Location(locationName,description,streetAddress,city,state,zipcode,latitude,longitude);        
+//        locationDao.addLocation(location);
+//        return "redirect:/location";
+//    }
+//    @RequestMapping(value="editLocation/{locationID}", method=RequestMethod.GET)
+//    public String editLocation(@PathVariable("locationID") int id, Model model) {
+//        Location location = locationDao.getLocationByID(id);
+//        model.addAttribute("locationToEdit", location);
+//        return "/editLocation";
+//    }
+//    @RequestMapping(value="updateLocation", method=RequestMethod.POST)
+//    public String updateLocation(int locationID, String locationName, String description, String streetAddress, String city, String state, String zipcode, String latitude, String longitude) {
+//        Location location = new Location(locationName,description,streetAddress,city,state,zipcode,latitude,longitude);
+//        location.setLocationID(locationID);       
+//        locationDao.updateLocation(location);
+//        return "redirect:/location";
+//    }
+//    @RequestMapping(value="deleteLocation/{locationID}", method=RequestMethod.GET)
+//    public String deleteLocation(@PathVariable("locationID") int id) {
+//        locationDao.deleteLocationByID(id);
+//        return "redirect:/location";
+//    }
 }
