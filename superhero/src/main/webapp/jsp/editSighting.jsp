@@ -55,7 +55,7 @@
                 </div>
                 <div class="form-group">
                     <label for="locationID">Location:</label>
-                    <select class="form-control" id="locationID" name="locationID">
+                    <select class="form-control" name="locationID">
                         <c:forEach var="location" items="${locations}">
                             <c:choose>
                                 <c:when test="${location.locationID == sightingToEdit.location.locationID}">

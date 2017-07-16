@@ -64,11 +64,11 @@
                     <form action="${pageContext.request.contextPath}/addHero" method="post">
                         <div class="form-group">
                             <label for="heroName">Hero Name:</label>
-                            <input id="heroName" name="heroName" type="text" class="form-control"/>                            
+                            <input name="heroName" type="text" class="form-control"/>                            
                         </div>                        
                         <div class="form-group">
                             <label for="heroDescription">Hero Description:</label>
-                            <textarea id="heroDescription" name="heroDescription" class="form-control" rows="10"></textarea>
+                            <textarea name="heroDescription" class="form-control" rows="10"></textarea>
                         </div>                        
                         <button type="submit" class="btn btn-primary">Submit</button> 
                     </form>
