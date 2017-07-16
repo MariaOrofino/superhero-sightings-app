@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package twrog.superhero.dto;
 
 import java.util.Objects;
@@ -12,7 +6,9 @@ import java.util.Objects;
  *
  * @author Travis Rogers
  */
+
 public class Hero {
+    
     private int heroID;
     private String heroName;
     private String description;
@@ -30,27 +26,21 @@ public class Hero {
     public int getHeroID() {
         return heroID;
     }
-
     public void setHeroID(int heroID) {
         this.heroID = heroID;
     }
-
     public String getHeroName() {
         return heroName;
     }
-
     public void setHeroName(String heroName) {
         this.heroName = heroName;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }    
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -59,7 +49,6 @@ public class Hero {
         hash = 13 * hash + Objects.hashCode(this.description);
         return hash;
     }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

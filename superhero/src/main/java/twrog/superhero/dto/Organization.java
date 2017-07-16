@@ -1,20 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package twrog.superhero.dto;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
  *
  * @author Travis Rogers
  */
+
 public class Organization {
+    
     private int orgID;
     private String orgName;
     private String description;
@@ -48,59 +42,45 @@ public class Organization {
     public int getOrgID() {
         return orgID;
     }
-
     public void setOrgID(int orgID) {
         this.orgID = orgID;
     }
-
     public String getOrgName() {
         return orgName;
     }
-
     public void setOrgName(String orgName) {
         this.orgName = orgName;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
     public String getStreetAddress() {
         return streetAddress;
     }
-
     public void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
     }
-
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
-
     public String getState() {
         return state;
     }
-
     public void setState(String state) {
         this.state = state;
     }
-
     public String getZipcode() {
         return zipcode;
     }
-
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -113,7 +93,6 @@ public class Organization {
         hash = 17 * hash + Objects.hashCode(this.zipcode);
         return hash;
     }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -148,7 +127,5 @@ public class Organization {
             return false;
         }
         return true;
-    }
-    
-    
+    }        
 }

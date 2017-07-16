@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package twrog.superhero.dto;
 
 import java.time.LocalDate;
@@ -13,7 +7,9 @@ import java.util.Objects;
  *
  * @author Travis Rogers
  */
+
 public class Sighting {
+    
     private int sightingID;
     private Hero hero;
     private Location location;
@@ -22,35 +18,27 @@ public class Sighting {
     public int getSightingID() {
         return sightingID;
     }
-
     public void setSightingID(int sightingID) {
         this.sightingID = sightingID;
     }
-    
     public Hero getHero() {
         return hero;
     }
-
     public void setHero(Hero hero) {
         this.hero = hero;
     }
-
     public Location getLocation() {
         return location;
     }
-
     public void setLocation(Location location) {
         this.location = location;
     }
-
     public LocalDate getDate() {
         return date;
     }
-
     public void setDate(LocalDate date) {
         this.date = date;
     }
-
     @Override
     public int hashCode() {
         int hash = 5;
@@ -60,7 +48,6 @@ public class Sighting {
         hash = 23 * hash + Objects.hashCode(this.date);
         return hash;
     }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -86,7 +73,5 @@ public class Sighting {
             return false;
         }
         return true;
-    }
-    
-    
+    }        
 }

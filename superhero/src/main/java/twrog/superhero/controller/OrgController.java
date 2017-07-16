@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package twrog.superhero.controller;
 
 import java.util.List;
@@ -20,6 +14,7 @@ import twrog.superhero.dto.Organization;
  *
  * @author Travis Rogers
  */
+
 @Controller
 public class OrgController {
     OrgDao orgDao;

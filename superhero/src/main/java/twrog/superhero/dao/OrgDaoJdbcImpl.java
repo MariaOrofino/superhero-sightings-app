@@ -1,9 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
 package twrog.superhero.dao;
 
 import java.sql.ResultSet;
@@ -20,7 +14,9 @@ import twrog.superhero.dto.Organization;
  *
  * @author Travis Rogers
  */
+
 public class OrgDaoJdbcImpl implements OrgDao {
+    
     private static final String SQL_INSERT_ORG =
             "insert into Organization (OrgName, Description, StreetAddress, City, State, Zipcode) "
             + "values (?, ?, ?, ?, ?, ?)";
@@ -109,7 +105,9 @@ public class OrgDaoJdbcImpl implements OrgDao {
         }
     }
     
+    //HeroOrganization bridge table
     private static final String SQL_DELETE_HERO_ORG_BY_ORG_ID = "delete from HeroOrganization where OrganizationID = ?";
+    
     private void deleteHeroOrgsByOrgID(int orgID) {
         jdbcTemplate.update(SQL_DELETE_HERO_ORG_BY_ORG_ID, orgID);
     }

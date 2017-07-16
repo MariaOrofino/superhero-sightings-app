@@ -1,15 +1,8 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
 package twrog.superhero.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import javax.inject.Inject;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,7 +14,9 @@ import twrog.superhero.dto.SuperPower;
  *
  * @author Travis Rogers
  */
+
 public class SuperPowerDaoJdbcImpl implements SuperPowerDao {
+    
     private static final String SQL_INSERT_SUPER_POWER = "insert into SuperPower (Description) values (?)";
     private static final String SQL_SELECT_SUPER_POWER_BY_ID = "select * from SuperPower where SuperPowerID = ?";
     private static final String SQL_SELECT_ALL_SUPER_POWERS = "select * from SuperPower";
@@ -84,6 +79,7 @@ public class SuperPowerDaoJdbcImpl implements SuperPowerDao {
         }
     }
     
+    //HeroSuperPower bridge table
     private static final String SQL_DELETE_HERO_SUPER_POWERS_BY_SUPER_POWER_ID = "delete from HeroSuperPower where SuperPowerID = ?";
     
     private void deleteHeroSuperPowerBySuperPowerID(int superPowerID) {

@@ -1,9 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
 package twrog.superhero.dao;
 
 import java.sql.ResultSet;
@@ -20,6 +14,7 @@ import twrog.superhero.dto.Location;
  *
  * @author Travis Rogers
  */
+
 public class LocationDaoJdbcImpl implements LocationDao {
     
     private static final String SQL_INSERT_LOCATION = "insert into Location "
@@ -116,6 +111,7 @@ public class LocationDaoJdbcImpl implements LocationDao {
         }
     }
     
+    //Sighting table
     private static final String SQL_DELETE_SIGHTINGS_BY_LOCATION_ID = "delete from Sighting where LocationID = ?";
     private void deleteSightingsByLocationID(int locationID) {
         jdbcTemplate.update(SQL_DELETE_SIGHTINGS_BY_LOCATION_ID, locationID);

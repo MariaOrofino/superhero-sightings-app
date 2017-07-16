@@ -1,9 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
 package twrog.superhero.dto;
 
 import java.math.BigDecimal;
@@ -14,7 +8,9 @@ import java.util.Objects;
  *
  * @author Travis Rogers
  */
+
 public class Location {
+    
     private int locationID;
     private String locationName;
     private String description;
@@ -65,76 +61,58 @@ public class Location {
     
     public int getLocationID() {
         return locationID;
-    }
-    
+    }    
     public void setLocationID(int locationID) {
         this.locationID = locationID;
-    }
-    
+    }    
     public String getLocationName() {
         return locationName;
-    }
-    
+    }    
     public void setLocationName(String locationName) {
         this.locationName = locationName;
-    }
-    
+    }    
     public String getDescription() {
         return description;
-    }
-    
+    }    
     public void setDescription(String description) {
         this.description = description;
-    }
-    
+    }    
     public String getStreetAddress() {
         return streetAddress;
-    }
-    
+    }    
     public void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
-    }
-    
+    }    
     public String getCity() {
         return city;
-    }
-    
+    }    
     public void setCity(String city) {
         this.city = city;
-    }
-    
+    }    
     public String getState() {
         return state;
-    }
-    
+    }    
     public void setState(String state) {
         this.state = state;
-    }
-    
+    }    
     public String getZipcode() {
         return zipcode;
-    }
-    
+    }    
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
-    }
-    
+    }    
     public BigDecimal getLatitude() {
         return latitude;
-    }
-    
+    }    
     public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
-    }
-    
+    }    
     public BigDecimal getLongitude() {
         return longitude;
-    }
-    
+    }    
     public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
-    }
-    
+    }    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -148,8 +126,7 @@ public class Location {
         hash = 17 * hash + Objects.hashCode(this.latitude);
         hash = 17 * hash + Objects.hashCode(this.longitude);
         return hash;
-    }
-    
+    }    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -196,10 +173,5 @@ public class Location {
             return false;
         }
         return true;
-    }
-    
-    
-    
-    
-    
+    }                    
 }

@@ -1,8 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
 package twrog.superhero.dao;
 
 import java.sql.ResultSet;
@@ -19,7 +14,9 @@ import twrog.superhero.dto.Hero;
  *
  * @author Travis Rogers
  */
+
 public class HeroDaoJdbcImpl implements HeroDao {
+    
     private static final String SQL_INSERT_HERO = "insert into Hero (HeroName,Description) values (?,?)";
     private static final String SQL_SELECT_HERO_BY_ID = "select * from Hero where HeroID = ?";
     private static final String SQL_SELECT_ALL_HEROS = "select * from Hero order by Hero.HeroName";
@@ -96,9 +93,11 @@ public class HeroDaoJdbcImpl implements HeroDao {
         }
     }
     
+    //HeroSuperPower bridge table
     private static final String SQL_INSERT_HERO_SUPER_POWER = "insert into HeroSuperPower (HeroID, SuperPowerID) values (?,?)";
     private static final String SQL_DELETE_HERO_SUPER_POWER = "delete from HeroSuperPower where HeroID = ? and SuperPowerID = ?";
     private static final String SQL_DELETE_HERO_SUPER_POWERS_BY_HERO_ID = "delete from HeroSuperPower where HeroID = ?";
+    
     @Override
     public void addHeroSuperPower(int heroID, int superPowerID) {
         jdbcTemplate.update(SQL_INSERT_HERO_SUPER_POWER, heroID, superPowerID);
@@ -111,6 +110,7 @@ public class HeroDaoJdbcImpl implements HeroDao {
         jdbcTemplate.update(SQL_DELETE_HERO_SUPER_POWERS_BY_HERO_ID, heroID);
     }
     
+    //HeroOrganization bridge table
     private static final String SQL_INSERT_HERO_ORG = "insert into HeroOrganization (HeroID,OrganizationID) values (?,?)";
     private static final String SQL_DELETE_HERO_ORG = "delete from HeroOrganization where HeroID = ? and OrganizationID = ?";
     private static final String SQL_DELETE_HERO_ORG_BY_HERO_ID = "delete from HeroOrganization where HeroID = ?";
@@ -126,6 +126,7 @@ public class HeroDaoJdbcImpl implements HeroDao {
         jdbcTemplate.update(SQL_DELETE_HERO_ORG_BY_HERO_ID, heroID);
     }
     
+    //Sighting table
     private static final String SQL_DELETE_SIGHTINGS_BY_HERO_ID = "delete from Sighting where HeroID = ?";
     private void deleteSightingsByHeroID(int heroID) {
         jdbcTemplate.update(SQL_DELETE_SIGHTINGS_BY_HERO_ID, heroID);
