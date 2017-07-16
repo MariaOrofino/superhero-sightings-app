@@ -12,43 +12,52 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
                     <a class="navbar-brand" href="${pageContext.request.contextPath}/">Hero Sightings</a>
                 </div>
-                <ul class="nav navbar-nav">
-                    <li><a class="nav-link" href="${pageContext.request.contextPath}/">Home</a></li>
-                    <li><a class="nav-link" href="${pageContext.request.contextPath}/sighting">Sightings</a></li>
-                    <li class="active"><a class="nav-link" href="${pageContext.request.contextPath}/hero">Heros</a></li>
-                    <li><a class="nav-link" href="${pageContext.request.contextPath}/location">Locations</a></li>
-                    <li><a class="nav-link" href="${pageContext.request.contextPath}/organization">Organizations</a></li>
-                </ul>
-                <a href="${pageContext.request.contextPath}/reportSighting" class="btn btn-danger navbar-btn">Report Sighting</a>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li><a class="nav-link" href="${pageContext.request.contextPath}/">Home</a></li>
+                        <li><a class="nav-link" href="${pageContext.request.contextPath}/sighting">Sightings</a></li>
+                        <li class="active"><a class="nav-link" href="${pageContext.request.contextPath}/hero">Heros</a></li>
+                        <li><a class="nav-link" href="${pageContext.request.contextPath}/location">Locations</a></li>
+                        <li><a class="nav-link" href="${pageContext.request.contextPath}/organization">Organizations</a></li>
+                    </ul>
+                    <a href="${pageContext.request.contextPath}/reportSighting" class="btn btn-danger navbar-btn">Report Sighting</a>
+                </div>
             </div>
         </nav>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
                     <h2 class="text-center">Heros</h2>
-                    <table class="table table-bordered table-hover table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th></th>
-                            </tr>                            
-                        </thead>
-                        <tbody>
-                            <c:forEach var="hero" items="${heros}">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
                                 <tr>
-                                    <td>${hero.heroName}</td>
-                                    <td>${hero.description}</td>
-                                    <td class="text-center">
-                                        <a href="${pageContext.request.contextPath}/deleteHero/${hero.heroID}">Delete</a> | 
-                                        <a href="${pageContext.request.contextPath}/editHero/${hero.heroID}">Edit</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th></th>
+                                </tr>                            
+                            </thead>
+                            <tbody>
+                                <c:forEach var="hero" items="${heros}">
+                                    <tr>
+                                        <td>${hero.heroName}</td>
+                                        <td>${hero.description}</td>
+                                        <td class="text-center">
+                                            <a href="${pageContext.request.contextPath}/deleteHero/${hero.heroID}">Delete</a> | 
+                                            <a href="${pageContext.request.contextPath}/editHero/${hero.heroID}">Edit</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="col-sm-6">
                     <h2 class="text-center">Add Hero</h2>

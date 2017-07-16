@@ -12,47 +12,56 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
                     <a class="navbar-brand" href="${pageContext.request.contextPath}/">Hero Sightings</a>
                 </div>
-                <ul class="nav navbar-nav">
-                    <li><a class="nav-link" href="${pageContext.request.contextPath}/">Home</a></li>
-                    <li><a class="nav-link" href="${pageContext.request.contextPath}/sighting">Sightings</a></li>
-                    <li><a class="nav-link" href="${pageContext.request.contextPath}/hero">Heros</a></li>
-                    <li><a class="nav-link" href="${pageContext.request.contextPath}/location">Locations</a></li>
-                    <li class="active"><a class="nav-link" href="${pageContext.request.contextPath}/organization">Organizations</a></li>
-                </ul>
-                <a href="${pageContext.request.contextPath}/reportSighting" class="btn btn-danger navbar-btn">Report Sighting</a>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li><a class="nav-link" href="${pageContext.request.contextPath}/">Home</a></li>
+                        <li><a class="nav-link" href="${pageContext.request.contextPath}/sighting">Sightings</a></li>
+                        <li><a class="nav-link" href="${pageContext.request.contextPath}/hero">Heros</a></li>
+                        <li><a class="nav-link" href="${pageContext.request.contextPath}/location">Locations</a></li>
+                        <li class="active"><a class="nav-link" href="${pageContext.request.contextPath}/organization">Organizations</a></li>
+                    </ul>
+                    <a href="${pageContext.request.contextPath}/reportSighting" class="btn btn-danger navbar-btn">Report Sighting</a>
+                </div>
             </div>
         </nav>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
                     <h2 class="text-center">Hero Organizations</h2>
-                    <table class="table table-bordered table-hover table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>City</th>
-                                <th>State</th>
-                                <th>ZIP Code</th>
-                                <th></th>
-                            </tr>                            
-                        </thead>
-                        <tbody>
-                            <c:forEach var="org" items="${orgs}">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
                                 <tr>
-                                    <td>${org.orgName}</td>
-                                    <td>${org.city}</td>
-                                    <td>${org.state}</td>
-                                    <td>${org.zipcode}</td>
-                                    <td>
-                                        <a href="deleteOrg/${org.orgID}">Delete</a> | 
-                                        <a href="editOrg/${org.orgID}">Edit</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                                    <th>Name</th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>ZIP Code</th>
+                                    <th></th>
+                                </tr>                            
+                            </thead>
+                            <tbody>
+                                <c:forEach var="org" items="${orgs}">
+                                    <tr>
+                                        <td>${org.orgName}</td>
+                                        <td>${org.city}</td>
+                                        <td>${org.state}</td>
+                                        <td>${org.zipcode}</td>
+                                        <td>
+                                            <a href="deleteOrg/${org.orgID}">Delete</a> | 
+                                            <a href="editOrg/${org.orgID}">Edit</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="col-sm-6">
                     <h2 class="text-center">Add Organization</h2>
