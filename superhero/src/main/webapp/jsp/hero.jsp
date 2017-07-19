@@ -32,52 +32,55 @@
             </div>
         </nav>
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h2 class="text-center">Heros</h2>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th></th>
-                                </tr>                            
-                            </thead>
-                            <tbody>
-                                <c:forEach var="hero" items="${heros}">
-                                    <tr>
-                                        <td>${hero.heroName}</td>
-                                        <td>${hero.description}</td>
-                                        <td class="text-center">
-                                            <a href="${pageContext.request.contextPath}/deleteHero/${hero.heroID}">Delete</a> | 
-                                            <a href="${pageContext.request.contextPath}/editHero/${hero.heroID}">Edit</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <h2 class="text-center">Add Hero</h2>
-                    <form action="${pageContext.request.contextPath}/addHero" method="post">
-                        <div class="form-group">
-                            <label for="heroName">Hero Name:</label>
-                            <input name="heroName" type="text" class="form-control"/>                            
-                        </div>                        
-                        <div class="form-group">
-                            <label for="heroDescription">Hero Description:</label>
-                            <textarea name="heroDescription" class="form-control" rows="10"></textarea>
-                        </div>                        
-                        <button type="submit" class="btn btn-primary">Submit</button> 
-                    </form>
-                </div>
+            <div class="text-center" style="margin-bottom: 1.5em">
+                    <button id="showHerosButton" type="button" class="btn btn-lg btn-default">Heros</button>
+                    <button id="addHeroButton" type="button" class="btn btn-lg btn-default">Add Hero</button>
+            </div>
+            <div id="showHerosDiv">
+            <h2 class="text-center">Heros</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>                            
+                    </thead>
+                    <tbody>
+                        <c:forEach var="hero" items="${heros}">
+                            <tr>
+                                <td>${hero.heroName}</td>
+                                <td>${hero.description}</td>
+                                <td class="text-center">
+                                    <a href="${pageContext.request.contextPath}/deleteHero/${hero.heroID}">Delete</a> | 
+                                    <a href="${pageContext.request.contextPath}/editHero/${hero.heroID}">Edit</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            <div id="addHeroDiv">
+                <h2 class="text-center">Add Hero</h2>
+                <form action="${pageContext.request.contextPath}/addHero" method="post">
+                    <div class="form-group">
+                        <label for="heroName">Hero Name:</label>
+                        <input name="heroName" type="text" class="form-control"/>                            
+                    </div>                        
+                    <div class="form-group">
+                        <label for="heroDescription">Hero Description:</label>
+                        <textarea name="heroDescription" class="form-control" rows="10"></textarea>
+                    </div>                        
+                    <button type="submit" class="btn btn-primary">Submit</button> 
+                </form>
             </div>
         </div>
         
         
         <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/hero.js"></script>
     </body>
 </html>
