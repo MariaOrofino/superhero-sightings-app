@@ -1,6 +1,8 @@
 package twrog.superhero.controller;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
@@ -52,12 +54,17 @@ public class SightingController {
     }
     @RequestMapping(value="addSighting", method=RequestMethod.POST)
     public String addSighting(int heroID, int locationID, String sightingDate) {
+        LocalDate date;
+        try {
+        date = LocalDate.parse(sightingDate);
+        } catch (DateTimeParseException e) {
+            return "redirect:/sighting";
+        }
         Hero hero = new Hero();
         hero.setHeroID(heroID);
         Location location = new Location();
         location.setLocationID(locationID);
         Sighting sighting = new Sighting();
-        LocalDate date = LocalDate.parse(sightingDate);
         sighting.setDate(date);
         sighting.setHero(hero);
         sighting.setLocation(location);
@@ -76,13 +83,19 @@ public class SightingController {
     }
     @RequestMapping(value="updateSighting", method=RequestMethod.POST)
     public String updateSighting(String sightingDate, int heroID, int locationID, int sightingID) {
+        LocalDate date;
+        try {
+        date = LocalDate.parse(sightingDate);
+        } catch (DateTimeParseException e) {
+            return "redirect:/sighting";
+        }
         Hero hero = new Hero();
         hero.setHeroID(heroID);
         Location location = new Location();
         location.setLocationID(locationID);
         Sighting sighting = new Sighting();
         sighting.setSightingID(sightingID);
-        sighting.setDate(LocalDate.parse(sightingDate));
+        sighting.setDate(date);
         sighting.setHero(hero);
         sighting.setLocation(location);
         sightingDao.updateSighting(sighting);
