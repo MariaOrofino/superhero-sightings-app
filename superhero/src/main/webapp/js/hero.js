@@ -1,18 +1,26 @@
+
 $(document).ready(function() {
-    $("#addHeroDiv").hide();
-    $("#showHerosButton").addClass("active");
-    
+    showHeroTable();    
     $("#addHeroButton").click(function() {
-        $("#showHerosDiv").hide();
-        $("#addHeroDiv").show();
-        $("#showHerosButton").removeClass("active");
-        $("#addHeroButton").addClass("active");
-    });
-    
+        showAddHeroForm();
+    });    
     $("#showHerosButton").click(function() {
-        $("#showHerosDiv").show();
-        $("#addHeroDiv").hide();
-        $("#showHerosButton").addClass("active");
-        $("#addHeroButton").removeClass("active");
+        showHeroTable();
     });
 });
+
+function showHeroTable() {
+    $("#showHerosDiv").show();
+    $("#addHeroDiv").hide();
+    $("#showHerosButton").addClass("active");
+    $("#addHeroButton").removeClass("active");
+    $("#heroHeader").text("Heros");
+}
+
+function showAddHeroForm() {
+    $("#showHerosDiv").hide();
+    $("#addHeroDiv").show();
+    $("#showHerosButton").removeClass("active");
+    $("#addHeroButton").addClass("active");
+    $("#heroHeader").text("Add Hero");
+}
