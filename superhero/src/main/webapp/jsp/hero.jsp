@@ -67,6 +67,8 @@
                 </div>
             </div>
             <div id="addHeroDiv">
+                <div class="row">
+                    <div class="col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
                 <form action="${pageContext.request.contextPath}/addHero" method="post">
                     <div class="form-group">
                         <label for="heroName">Hero Name:</label>
@@ -78,6 +80,8 @@
                     </div>                        
                     <button type="submit" class="btn btn-primary">Submit</button> 
                 </form>
+                    </div>
+                </div>
             </div>
         </div>
         
