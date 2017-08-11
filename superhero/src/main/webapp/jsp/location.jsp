@@ -6,7 +6,8 @@
 <html>
     <head>
         <title>Locations</title>
-        <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">  
+        <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet"> 
+        <link href="${pageContext.request.contextPath}/css/superhero.css" rel="stylesheet"> 
     </head>
     <body>
         <nav class="navbar navbar-inverse">
@@ -33,13 +34,22 @@
         </nav>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6">
-                    <h2 class="text-center">Locations</h2>
+                <div class="col-sm-4">
+                    <button id="showLocationTableButton" class="btn btn-lg btn-default">Locations</button>
+                    <button id="showAddLocationFormButton" class="btn btn-lg btn-default">Add Location</button>
+                </div>
+                <div class="col-sm-4">
+                    <h2 class="toggleHeader"></h2>
+                </div>
+            </div>
+                <div id="locationTableDiv">                    
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Street</th>
                                     <th>City</th>
                                     <th>State</th>
                                     <th>ZIP Code</th>
@@ -52,6 +62,8 @@
                                 <c:forEach var="location" items="${locations}">
                                     <tr>
                                         <td>${location.locationName}</td>
+                                        <td>${location.description}</td>
+                                        <td>${location.streetAddress}</td>
                                         <td>${location.city}</td>
                                         <td>${location.state}</td>
                                         <td>${location.zipcode}</td>
@@ -67,8 +79,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <h2 class="text-center">Add Location</h2>
+                <div id="addLocationDiv">                    
                     <form action="${pageContext.request.contextPath}/addLocation" method="post">
                         <div class="form-group">
                             <label for="locationName">Location Name:</label>
@@ -105,11 +116,11 @@
                         <button type="submit" class="btn btn-primary">Submit</button> 
                     </form>
                 </div>
-            </div>
         </div>
         
         
         <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/location.js"></script>
     </body>
 </html>

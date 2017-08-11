@@ -14,7 +14,7 @@ function showHeroTable() {
     $("#addHeroDiv").hide();
     $("#showHerosButton").addClass("active");
     $("#addHeroButton").removeClass("active");
-    $("#heroHeader").text("Heros");
+    $(".toggleHeader").text("Heros");
 }
 
 function showAddHeroForm() {
@@ -22,5 +22,5 @@ function showAddHeroForm() {
     $("#addHeroDiv").show();
     $("#showHerosButton").removeClass("active");
     $("#addHeroButton").addClass("active");
-    $("#heroHeader").text("Add Hero");
+    $(".toggleHeader").text("Add Hero");
 }

@@ -7,6 +7,7 @@
     <head>
         <title>Heros</title>
         <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">  
+        <link href="${pageContext.request.contextPath}/css/superhero.css" rel="stylesheet"> 
     </head>
     <body>
         <nav class="navbar navbar-inverse">
@@ -38,7 +39,7 @@
                     <button id="addHeroButton" type="button" class="btn btn-lg btn-default">Add Hero</button>
                 </div>
                 <div class="col-sm-4">
-                    <h2 id="heroHeader" class="text-center"></h2>
+                    <h2 class="toggleHeader"></h2>
                 </div>
             </div>
             <div id="showHerosDiv">
@@ -69,17 +70,17 @@
             <div id="addHeroDiv">
                 <div class="row">
                     <div class="col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                <form action="${pageContext.request.contextPath}/addHero" method="post">
-                    <div class="form-group">
-                        <label for="heroName">Hero Name:</label>
-                        <input name="heroName" type="text" class="form-control"/>                            
-                    </div>                        
-                    <div class="form-group">
-                        <label for="heroDescription">Hero Description:</label>
-                        <textarea name="heroDescription" class="form-control" rows="10"></textarea>
-                    </div>                        
-                    <button type="submit" class="btn btn-primary">Submit</button> 
-                </form>
+                        <form action="${pageContext.request.contextPath}/addHero" method="post">
+                            <div class="form-group">
+                                <label for="heroName">Hero Name:</label>
+                                <input name="heroName" type="text" class="form-control"/>                            
+                            </div>                        
+                            <div class="form-group">
+                                <label for="heroDescription">Hero Description:</label>
+                                <textarea name="heroDescription" class="form-control" rows="10"></textarea>
+                            </div>                        
+                            <button type="submit" class="btn btn-primary">Submit</button> 
+                        </form>
                     </div>
                 </div>
             </div>
